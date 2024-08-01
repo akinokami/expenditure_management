@@ -2,6 +2,7 @@ import 'package:expenditure_management/custom_widgets/custom_card.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
+import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -48,7 +49,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.account_box,
                   size: 18.w,
                 ),
-                label: 'Profile',
+                label: 'Statistical',
                 backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
@@ -56,7 +57,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.history,
                   size: 18.w,
                 ),
-                label: 'History',
+                label: 'Calendar',
                 backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
@@ -64,15 +65,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.search,
                   size: 18.w,
                 ),
-                label: 'Search',
-                backgroundColor: primaryColor,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.settings,
-                  size: 18.w,
-                ),
-                label: 'Settings',
+                label: 'Profile',
                 backgroundColor: primaryColor,
               ),
             ],
@@ -92,7 +85,7 @@ class BottomNavigationMenu extends StatelessWidget {
       body: Obx(() => IndexedStack(
             index: bottomNavController.tabIndex.value,
             children: [
-              const Center(child: CustomText(text: "Menu 1")),
+              const HomeScreen(),
               Center(
                   child: CustomTextField(
                 controller: TextEditingController(),
@@ -108,7 +101,6 @@ class BottomNavigationMenu extends StatelessWidget {
                 widget: const CustomText(text: "Menu 4"),
                 color: secondaryColor,
               )),
-              const Center(child: CustomText(text: "Menu 5")),
             ],
           )),
     ));
