@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = TextEditingController();
-    FirestoreService().getExpenditureDocument();
+    FireStoreService().getExpenditureDocument();
     return Scaffold(
         backgroundColor: primaryColor,
         body: Padding(
