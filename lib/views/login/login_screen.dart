@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../bottom_navigation_menu.dart';
+import '../../controller/login_controller.dart';
 import '../../custom_widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginController = Get.put(LoginController());
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -39,7 +41,7 @@ class LoginScreen extends StatelessWidget {
               bgColor: Colors.white,
               txtColor: Colors.black,
               onTap: () {
-                Get.to(() => BottomNavigationMenu());
+                loginController.loginWithGoogle();
               },
             ),
           ],
