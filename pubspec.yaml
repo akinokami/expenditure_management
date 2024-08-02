@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.9.3
   get: ^4.6.6
+  fl_chart: ^0.65.0
+  syncfusion_flutter_calendar: ^26.2.7
 
 dev_dependencies:
   flutter_test:
