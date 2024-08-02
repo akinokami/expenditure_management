@@ -1,7 +1,9 @@
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../bottom_navigation_menu.dart';
 import '../../custom_widgets/custom_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -36,7 +38,9 @@ class LoginScreen extends StatelessWidget {
               text: 'Contine with google',
               bgColor: Colors.white,
               txtColor: Colors.black,
-              onTap: () {},
+              onTap: () {
+                Get.to(() => BottomNavigationMenu());
+              },
             ),
           ],
         ),
