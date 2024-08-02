@@ -2,6 +2,7 @@ import 'package:expenditure_management/custom_widgets/custom_card.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
+import 'package:expenditure_management/views/calendar/calender_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,7 @@ class BottomNavigationMenu extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.account_box,
+                  Icons.pie_chart,
                   size: 18.w,
                 ),
                 label: 'Statistical',
@@ -54,7 +55,7 @@ class BottomNavigationMenu extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.history,
+                  Icons.calendar_month,
                   size: 18.w,
                 ),
                 label: 'Calendar',
@@ -62,7 +63,7 @@ class BottomNavigationMenu extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.search,
+                  Icons.person,
                   size: 18.w,
                 ),
                 label: 'Profile',
@@ -91,11 +92,7 @@ class BottomNavigationMenu extends StatelessWidget {
                 controller: TextEditingController(),
                 hintText: "Menu 2",
               )),
-              Center(
-                  child: CustomTextButton(
-                text: "Menu 3",
-                onPressed: () {},
-              )),
+              const CanlendarScreen(),
               Center(
                   child: CustomCard(
                 widget: const CustomText(text: "Menu 4"),

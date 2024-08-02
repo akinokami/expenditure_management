@@ -1,4 +1,4 @@
-package com.example.expenditure_management
+package com.em.expenditure_management
 
 import io.flutter.embedding.android.FlutterActivity
 
