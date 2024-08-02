@@ -1,14 +1,96 @@
 import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/constants/dimen_const.dart';
+import 'package:expenditure_management/controller/profile_controller.dart';
+import 'package:expenditure_management/custom_widgets/custom_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
+import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import 'package:share_plus/share_plus.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final profileController = Get.put(ProfileController());
+    void _shareAppLink() {
+      const String appLink = 'https://yourapp.link';
+      Share.share('Check out this amazing app: $appLink');
+    }
+    void _showPersistentBottomSheet(BuildContext context) {
+      showBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
+          ),
+        ),
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            decoration: BoxDecoration(
+              color: greyColor.withOpacity(0.5),
+              borderRadius:  BorderRadius.only(
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
+              ),
+            ),
+            height: 200.h,
+
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Obx(() => CustomText(
+                    text: 'Selected Time: ${profileController.formattedTime}',
+                    color: primaryColor,
+                    fontSize: 16.sp,
+                  )),
+                  Obx(() => Slider(
+                    activeColor: secondaryColor,
+                    inactiveColor: secondaryColor,
+                    value: profileController.sliderValue.value,
+                    min: 0,
+                    max: 1439, // 24 hours * 60 minutes - 1
+                    divisions: 1439,
+                    label: profileController.formattedTime,
+                    onChanged: (v) {
+                      profileController.setSliderValue(v);
+                    },
+                  )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CustomButton(
+                        outlineColor: primaryColor,
+                        text: "Cancel",
+                        bgColor: redColor,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        width: 100.w,
+                      ),
+                      CustomButton(
+                          outlineColor: primaryColor,
+                          bgColor: secondaryColor,
+                          text: "Save",
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          width: 100.w)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -52,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           Expanded(
               child: Container(
-                padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.all(10.w),
             decoration: BoxDecoration(
               color: cardColor,
               borderRadius: const BorderRadius.only(
@@ -66,24 +148,31 @@ class ProfileScreen extends StatelessWidget {
                 Card(
                   surfaceTintColor: primaryColor,
                   color: primaryColor,
-                  child:  Column(
+                  child: Column(
                     children: [
                       ListTile(
+                        onTap:_shareAppLink,
                         leading: Icon(Icons.mobile_screen_share_outlined),
                         title: CustomText(
                           text: 'Recommend app to friends',
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios,),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                        ),
                       ),
-                      Divider(color: greyColor,),
+                      Divider(
+                        color: greyColor,
+                      ),
                       ListTile(
+                        onTap: () {
+                          _showPersistentBottomSheet(context);
+                        },
                         leading: Icon(Icons.watch_later_outlined),
                         title: CustomText(
                           text: 'Daily reminder',
                         ),
                         trailing: Icon(Icons.arrow_forward_ios),
                       ),
-
                     ],
                   ),
                 ),
@@ -91,26 +180,29 @@ class ProfileScreen extends StatelessWidget {
                 Card(
                   surfaceTintColor: primaryColor,
                   color: primaryColor,
-                  child:  Column(
+                  child: Column(
                     children: [
                       ListTile(
-                        leading: Icon(Icons.delete_outline,color: redColor),
+                        leading: Icon(Icons.delete_outline, color: redColor),
                         title: CustomText(
                           text: 'Delete all data',
                           color: redColor,
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios,color: redColor),
+                        trailing:
+                            Icon(Icons.arrow_forward_ios, color: redColor),
                       ),
-                      Divider(color: greyColor,),
+                      Divider(
+                        color: greyColor,
+                      ),
                       ListTile(
-                        leading: Icon(Icons.logout_outlined,color: redColor),
+                        leading: Icon(Icons.logout_outlined, color: redColor),
                         title: CustomText(
                           text: 'Sign out',
                           color: redColor,
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios,color: redColor),
+                        trailing:
+                            Icon(Icons.arrow_forward_ios, color: redColor),
                       ),
-
                     ],
                   ),
                 ),
