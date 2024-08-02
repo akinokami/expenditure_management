@@ -4,6 +4,8 @@ import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
 import 'package:expenditure_management/views/calendar/calender_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
+import 'package:expenditure_management/views/profile/profile_screen.dart';
+import 'package:expenditure_management/views/statistical/statistical_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,7 +16,7 @@ class BottomNavigationMenu extends StatelessWidget {
   BottomNavigationMenu({super.key});
 
   final TextStyle unselectedLabelStyle = TextStyle(
-      color: Colors.white.withOpacity(0.5),
+      color: greyColor,
       fontWeight: FontWeight.w500,
       fontSize: 11.sp);
 
@@ -31,8 +33,8 @@ class BottomNavigationMenu extends StatelessWidget {
             showSelectedLabels: true,
             onTap: landingPageController.changeTabIndex,
             currentIndex: landingPageController.tabIndex.value,
-            backgroundColor: const Color(0xff1B8B00),
-            unselectedItemColor: Colors.white.withOpacity(0.5),
+            //backgroundColor: const Color(0xff1B8B00),
+            unselectedItemColor: greyColor.withOpacity(0.7),
             selectedItemColor: secondaryColor,
             unselectedLabelStyle: unselectedLabelStyle,
             selectedLabelStyle: selectedLabelStyle,
@@ -85,19 +87,11 @@ class BottomNavigationMenu extends StatelessWidget {
           buildBottomNavigationMenu(context, bottomNavController),
       body: Obx(() => IndexedStack(
             index: bottomNavController.tabIndex.value,
-            children: [
-              const HomeScreen(),
-              Center(
-                  child: CustomTextField(
-                controller: TextEditingController(),
-                hintText: "Menu 2",
-              )),
-              const CanlendarScreen(),
-              Center(
-                  child: CustomCard(
-                widget: const CustomText(text: "Menu 4"),
-                color: secondaryColor,
-              )),
+            children: const [
+              HomeScreen(),
+              StatisticalScreen(),
+              CanlendarScreen(),
+              ProfileScreen()
             ],
           )),
     ));
