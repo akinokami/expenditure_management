@@ -31,11 +31,13 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         enabled: enabled ?? true,
+
         onChanged: onChanged ?? (value) {},
         onSubmitted: onSubmitted ?? (value) {},
         onEditingComplete: onEditingComplete ?? () {},
         decoration: InputDecoration(
           hintText: hintText ?? '',
+          filled: true,
           fillColor: fillColor ?? Colors.white,
           hintStyle: TextStyle(
             color: hintColor ?? Colors.grey,
