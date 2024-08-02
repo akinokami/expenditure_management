@@ -3,6 +3,7 @@ import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_card.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
+import 'package:expenditure_management/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = TextEditingController();
+    FirestoreService().getExpenditureDocument();
     return Scaffold(
         backgroundColor: primaryColor,
         body: Padding(
@@ -21,7 +23,10 @@ class HomeScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                      child: CustomTextField(controller: controller,fillColor: cardColor,)),
+                      child: CustomTextField(
+                    controller: controller,
+                    fillColor: cardColor,
+                  )),
                   kSizedBoxW10,
                   Container(
                     width: 40.w,
@@ -29,13 +34,16 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: cardColor,
                         borderRadius: BorderRadius.circular(10)),
-                    child: Icon(Icons.filter_alt_outlined,color: secondaryColor),
+                    child:
+                        Icon(Icons.filter_alt_outlined, color: secondaryColor),
                   )
                 ],
               ),
               kSizedBoxH10,
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w,),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                ),
                 width: double.infinity,
                 height: 40.h,
                 decoration: BoxDecoration(
@@ -44,12 +52,19 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(text: "Tue, 02-08-2024",color: primaryColor),
+                    CustomText(text: "Tue, 02-08-2024", color: primaryColor),
                     Row(
                       children: [
-                        CustomText(text: "-9999999 VND",color: primaryColor,),
+                        CustomText(
+                          text: "-9999999 VND",
+                          color: primaryColor,
+                        ),
                         kSizedBoxW10,
-                        Icon(Icons.arrow_forward_ios_rounded,color: primaryColor,size: 15.w,)
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: primaryColor,
+                          size: 15.w,
+                        )
                       ],
                     )
                   ],
@@ -74,14 +89,17 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.category,size: 15.w),
+                                        Icon(Icons.category, size: 15.w),
                                         kSizedBoxW10,
                                         CustomText(
                                           fontSize: 10.sp,
                                           text: 'Income',
                                         ),
                                         kSizedBoxW10,
-                                        Icon(Icons.wallet,size: 15.w,),
+                                        Icon(
+                                          Icons.wallet,
+                                          size: 15.w,
+                                        ),
                                         kSizedBoxW10,
                                         CustomText(
                                           fontSize: 10.sp,
@@ -91,14 +109,17 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     Row(
                                       children: [
-                                        Icon(Icons.calendar_month,size: 15.w),
+                                        Icon(Icons.calendar_month, size: 15.w),
                                         kSizedBoxW10,
                                         CustomText(
                                           fontSize: 8.sp,
                                           text: '02-08-2024',
                                         ),
                                         kSizedBoxW10,
-                                        Icon(Icons.watch_later_outlined,size: 15.w,),
+                                        Icon(
+                                          Icons.watch_later_outlined,
+                                          size: 15.w,
+                                        ),
                                         kSizedBoxW10,
                                         CustomText(
                                           fontSize: 8.sp,
@@ -111,9 +132,7 @@ class HomeScreen extends StatelessWidget {
                                 CustomText(text: "+100000 VND"),
                               ],
                             ),
-                          )
-
-                          );
+                          ));
                     }),
               )
             ],

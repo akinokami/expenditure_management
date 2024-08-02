@@ -25,8 +25,9 @@ class FirestoreService {
     });
   }
 
-  Future<void> getExpenditureDocument(User user) async {
-    final DocumentSnapshot document = await expenditure.doc(user.uid).get();
+  Future<void> getExpenditureDocument() async {
+    final DocumentSnapshot document =
+        await expenditure.doc('ODcpguUHUitkP2sXBrre').get();
     print(document.data());
   }
 }

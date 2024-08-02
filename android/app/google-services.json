@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "168440741093",
-    "project_id": "fluttergame-15293",
-    "storage_bucket": "fluttergame-15293.appspot.com"
+    "project_number": "16505425247",
+    "project_id": "expenditure-management-f3ec0",
+    "storage_bucket": "expenditure-management-f3ec0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:168440741093:android:995f652f2e314c0b9fa80c",
+        "mobilesdk_app_id": "1:16505425247:android:8c812a60ca547a13d9faea",
         "android_client_info": {
           "package_name": "com.em.expenditure_management"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "16505425247-mklnq23jufq1f8gn46ise68e791vq580.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.em.expenditure_management",
+            "certificate_hash": "c1eb03c466132674f091807554d8280764ee5352"
+          }
+        },
+        {
+          "client_id": "16505425247-co1fiu3g2s07a3o81gsvbd3bnp215vj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDehya4cvH_vn0fHX63m3AJlPmPy9R_a4g"
+          "current_key": "AIzaSyCkJETcDOyN48kpSFGaf53oYlhErRjaukU"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16505425247-co1fiu3g2s07a3o81gsvbd3bnp215vj3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "16505425247-76ur5lk628gfkr22je5oj1pt8kcsfs2t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.expenditureManagement"
+              }
+            }
+          ]
         }
       }
     }
