@@ -27,7 +27,7 @@ class CustomText extends StatelessWidget {
         maxLines: maxLines ?? 1,
         style: TextStyle(
           fontSize: fontSize ?? 12.sp,
-          color: color ?? Colors.white,
+          color: color ?? Colors.black,
           fontWeight: fontWeight ?? FontWeight.normal,
           fontFamily: fontFamily ?? 'Poppins',
           overflow: textOverflow ?? TextOverflow.ellipsis,

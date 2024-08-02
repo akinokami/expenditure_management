@@ -1,4 +1,5 @@
 import 'package:expenditure_management/splash_screen.dart';
+import 'package:expenditure_management/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
           ),
-          home: const SplashScreen(),
+          home: const LoginScreen(),
         );
       },
     );

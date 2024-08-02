@@ -12,7 +12,12 @@
           "package_name": "com.em.expenditure_management"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "16505425247-co1fiu3g2s07a3o81gsvbd3bnp215vj3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCkJETcDOyN48kpSFGaf53oYlhErRjaukU"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16505425247-co1fiu3g2s07a3o81gsvbd3bnp215vj3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

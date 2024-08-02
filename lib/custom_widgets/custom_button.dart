@@ -37,7 +37,7 @@ class CustomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width ?? double.infinity,
-        height: height ?? 40,
+        height: height ?? 35.h,
         decoration: BoxDecoration(
           border: Border.all(color: outlineColor ?? Colors.green, width: 2),
           borderRadius: isRounded == true
@@ -60,13 +60,17 @@ class CustomButton extends StatelessWidget {
               visible: image != null,
               child: Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: Image.asset(image ?? ''),
+                child: Image.asset(
+                  image ?? '',
+                  width: 20.h,
+                  height: 20.h,
+                ),
               ),
             ),
             CustomText(
               text: text,
               color: txtColor ?? Colors.white,
-              fontSize: size ?? 16.sp,
+              fontSize: size ?? 14.sp,
               fontWeight: FontWeight.normal,
             ),
           ],

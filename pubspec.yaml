@@ -39,7 +39,8 @@ dependencies:
   get: ^4.6.6
   fl_chart: ^0.65.0
   table_calendar: ^3.1.2
-  # syncfusion_flutter_calendar: ^26.2.7
+  firebase_core: 
+  firebase_auth: 
 
 dev_dependencies:
   flutter_test:
@@ -64,9 +65,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
