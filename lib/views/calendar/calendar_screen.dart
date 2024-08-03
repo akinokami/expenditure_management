@@ -1,10 +1,15 @@
+import 'package:expenditure_management/controller/calendar_controller.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../constants/color_const.dart';
+import '../../constants/dimen_const.dart';
 import '../../controller/home_controller.dart';
+import '../../custom_widgets/custom_card.dart';
 
 class ExpenditureCalendar extends StatefulWidget {
   final String userId;
@@ -30,20 +35,23 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
   void _loadExpenditures() async {
     // Simulating fetching data from Firestore
     List<ExpenditureModel> data = await fetchExpenditures(widget.userId);
-    Map<DateTime, List<ExpenditureModel>> groupedExpenditures = _groupByDate(data);
+    Map<DateTime, List<ExpenditureModel>> groupedExpenditures =
+        _groupByDate(data);
     setState(() {
       _expenditures = groupedExpenditures;
     });
     print("zzzzzzzz ${data.length}");
   }
 
-  Map<DateTime, List<ExpenditureModel>> _groupByDate(List<ExpenditureModel> expenditures) {
+  Map<DateTime, List<ExpenditureModel>> _groupByDate(
+      List<ExpenditureModel> expenditures) {
     Map<DateTime, List<ExpenditureModel>> grouped = {};
 
     for (var exp in expenditures) {
-      DateTime date = DateTime.parse(exp.updatedDate??"");
-      DateTime formattedDate = DateTime.utc(date.year, date.month, date.day); // Only keep year, month, day
-print("FormateeDate $formattedDate ");
+      DateTime date = DateTime.parse(exp.updatedDate ?? "");
+      DateTime formattedDate = DateTime(
+          date.year, date.month, date.day); // Only keep year, month, day
+      print("FormateeDate $formattedDate ");
       if (!grouped.containsKey(formattedDate)) {
         grouped[formattedDate] = [];
       }
@@ -55,6 +63,7 @@ print("FormateeDate $formattedDate ");
 
   @override
   Widget build(BuildContext context) {
+    final calendarComponent = Get.put(CalendarController());
     return Scaffold(
       appBar: AppBar(
         title: Text('Expenditures Calendar'),
@@ -62,8 +71,8 @@ print("FormateeDate $formattedDate ");
       body: Column(
         children: [
           TableCalendar(
-            firstDay: DateTime.utc(2020, 1, 1),
-            lastDay: DateTime.utc(2030, 12, 31),
+            firstDay: DateTime(2020, 1, 1),
+            lastDay: DateTime(2030, 12, 31),
             focusedDay: _focusedDay,
             calendarFormat: _calendarFormat,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
@@ -87,6 +96,62 @@ print("FormateeDate $formattedDate ");
             },
           ),
           const SizedBox(height: 8.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Obx(
+                () => GestureDetector(
+                  onTap: () {
+                    calendarComponent.changeExpense();
+                  },
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
+                    decoration: BoxDecoration(
+                      color: calendarComponent.isExpense.value
+                          ? secondaryColor
+                          : cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                      ),
+                    ),
+                    child: CustomText(
+                      text: "Expense",
+                      fontSize: 16.sp,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              Obx(() => GestureDetector(
+                    onTap: () {
+                      calendarComponent.changeExpense();
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 5.h, horizontal: 15.w),
+                      decoration: BoxDecoration(
+                          color: calendarComponent.isExpense.value
+                              ? cardColor
+                              : secondaryColor,
+                          borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          )),
+                      child: CustomText(
+                        text: "Income",
+                        fontSize: 16.sp,
+                        color: primaryColor,
+                        fontWeight: FontWeight.bold,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
           _buildExpenditureList(),
         ],
       ),
@@ -94,37 +159,92 @@ print("FormateeDate $formattedDate ");
   }
 
   Widget _buildExpenditureList() {
-    List<ExpenditureModel> selectedExpenditures = _expenditures[_selectedDay] ?? [];
+    List<ExpenditureModel> selectedExpenditures =
+        _expenditures[_selectedDay] ?? [];
 
-    if((selectedExpenditures.isNotEmpty)){
+    if ((selectedExpenditures.isNotEmpty)) {
       print("${selectedExpenditures[0].updatedDate} xxxxxxxx");
-      return Expanded(
-        child: ListView.builder(
-          itemCount: selectedExpenditures.length,
-          itemBuilder: (context, index) {
-            var exp = selectedExpenditures[index];
-            print("${exp.updatedDate} xxxxxxxx");
-            return ListTile(
-              title: Text(exp.payment?.name??""),
-              subtitle: Text(exp.category?.name??""),
-              trailing: Text('\$${exp.type?.name??""}'),
-            );
-          },
+      return Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: selectedExpenditures.length,
+            itemBuilder: (context, index) {
+              var exp = selectedExpenditures[index];
+              return GestureDetector(
+                  onTap: () {
+                    //
+                  },
+                  child: CustomCard(
+                    widget: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(Icons.category, size: 15.w),
+                                kSizedBoxW10,
+                                CustomText(
+                                  fontSize: 10.sp,
+                                  text: exp.category?.name ?? '',
+                                ),
+                                kSizedBoxW10,
+                                Icon(
+                                  Icons.wallet,
+                                  size: 15.w,
+                                ),
+                                kSizedBoxW10,
+                                CustomText(
+                                  fontSize: 10.sp,
+                                  text: exp.payment?.name ?? '',
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.calendar_month, size: 15.w),
+                                kSizedBoxW10,
+                                CustomText(
+                                  fontSize: 8.sp,
+                                  text: exp.createdDate ?? '',
+                                ),
+                                kSizedBoxW10,
+                                Icon(
+                                  Icons.watch_later_outlined,
+                                  size: 15.w,
+                                ),
+                                kSizedBoxW10,
+                                CustomText(
+                                  fontSize: 8.sp,
+                                  text: exp.createdDate ?? '',
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        CustomText(
+                          text: "${exp.amount ?? ''}",
+                        ),
+                      ],
+                    ),
+                  ));
+            },
+          ),
         ),
       );
-    }
-    else{
+    } else {
       return CustomText(text: "NoData");
     }
-
-
   }
 }
 
 Future<List<ExpenditureModel>> fetchExpenditures(String userId) async {
   // Simulate fetching data from Firestore
   await Future.delayed(Duration(seconds: 1)); // Simulate delay
-return Get.find<HomeController>().expList;
+  return Get.find<HomeController>().expList;
   // Example data
   // return [
   //   {

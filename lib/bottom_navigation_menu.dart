@@ -86,7 +86,7 @@ class BottomNavigationMenu extends StatelessWidget {
             buildBottomNavigationMenu(context, bottomNavController),
         body: Obx(() => IndexedStack(
               index: bottomNavController.tabIndex.value,
-              children:  [
+              children: [
                 HomeScreen(),
                 StatisticalScreen(),
                 ExpenditureCalendar(userId: "mg1xi0ibayKsc8KnhR4u"),
@@ -171,6 +171,7 @@ class BottomNavigationMenu extends StatelessWidget {
                           SizedBox(height: 10.h),
                           SizedBox(height: 10.h),
                           TextField(
+                            controller: bottomNavController.amountTxtController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: cardColor,
@@ -209,6 +210,7 @@ class BottomNavigationMenu extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h),
                           TextField(
+                            controller: bottomNavController.noteTxtController,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: cardColor,
@@ -461,7 +463,7 @@ class BottomNavigationMenu extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: ElevatedButton(
                               onPressed: () {
-                                // Add your save action here
+                                bottomNavController.createExpenditure();
                               },
                               child: const Text('Save'),
                             ),

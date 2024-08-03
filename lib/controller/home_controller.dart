@@ -27,7 +27,8 @@ class HomeController extends GetxController {
     } catch (e) {
       constants.showSnackBar(
           title: 'Error', msg: e.toString(), textColor: Colors.red);
+    } finally {
+      isLoading(false);
     }
-    isLoading(false);
   }
 }

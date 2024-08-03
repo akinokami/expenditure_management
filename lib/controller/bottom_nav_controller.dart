@@ -1,15 +1,27 @@
+import 'package:expenditure_management/constants/color_const.dart';
+import 'package:expenditure_management/controller/home_controller.dart';
+import 'package:expenditure_management/models/expenditure_model.dart';
+import 'package:expenditure_management/services/category_data.dart';
+import 'package:expenditure_management/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../services/payment_method_data.dart';
+import '../utils/constants.dart';
 
 class BottomNavController extends GetxController {
   var tabIndex = 0.obs;
   RxBool isExpense = true.obs;
   RxInt selectedCategory = 0.obs;
   RxInt selectedPayment = 0.obs;
-  DateTime selectedDate=DateTime.now();
-  TimeOfDay selectedTime=TimeOfDay.now();
-  RxString selectedDateStr="".obs;
-  RxString selectedTimeStr="".obs;
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+  RxString selectedDateStr = "".obs;
+  RxString selectedTimeStr = "".obs;
+  final isLoading = false.obs;
+  final firestoreService = FireStoreService();
+  final noteTxtController = TextEditingController();
+  final amountTxtController = TextEditingController();
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -20,18 +32,8 @@ class BottomNavController extends GetxController {
     );
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
-      if(selectedDate.day<10 && selectedDate.month>9){
-        selectedDateStr.value = "0${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";}
-      else if(selectedDate.month<10 && selectedDate.day>9){
-        selectedDateStr.value = "${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";}
-     else if(selectedDate.day<10 && selectedDate.month<10){
-        selectedDateStr.value = "0${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";
-      }
-      else {
-        selectedDateStr.value = "${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";
-      }
+      formatDate();
     }
-
   }
 
   Future<void> selectTime(BuildContext context) async {
@@ -41,28 +43,47 @@ class BottomNavController extends GetxController {
     );
     if (picked != null && picked != selectedTime) {
       selectedTime = picked;
-      selectedTimeStr.value = "${selectedTime.hour}:${selectedTime.minute}";
+      formatTime();
     }
-
   }
+
   void changeTabIndex(int index) {
     tabIndex.value = index;
   }
 
   @override
   void onInit() {
-    if(selectedDate.day<10 && selectedDate.month>9){
-      selectedDateStr.value = "0${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";}
-    else if(selectedDate.month<10 && selectedDate.day>9){
-      selectedDateStr.value = "${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";}
-    else if(selectedDate.day<10 && selectedDate.month<10){
-      selectedDateStr.value = "0${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";
-    }
-    else {
-      selectedDateStr.value = "${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";
-    }
+    formatDate();
     selectedTimeStr.value = "${selectedTime.hour}:${selectedTime.minute}";
     super.onInit();
+  }
+
+  void formatDate() {
+    if (selectedDate.day < 10 && selectedDate.month > 9) {
+      selectedDateStr.value =
+          "${selectedDate.year}-${selectedDate.month}-0${selectedDate.day}";
+    } else if (selectedDate.month < 10 && selectedDate.day > 9) {
+      selectedDateStr.value =
+          "${selectedDate.year}-0${selectedDate.month}-${selectedDate.day}";
+    } else if (selectedDate.day < 10 && selectedDate.month < 10) {
+      selectedDateStr.value =
+          "${selectedDate.year}-0${selectedDate.month}-0${selectedDate.day}";
+    } else {
+      selectedDateStr.value =
+          "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}";
+    }
+  }
+
+  void formatTime() {
+    if (selectedTime.hour < 10 && selectedTime.minute > 9) {
+      selectedTimeStr.value = "0${selectedTime.hour}:${selectedTime.minute}";
+    } else if (selectedTime.hour > 9 && selectedTime.minute < 10) {
+      selectedTimeStr.value = "${selectedTime.hour}:0${selectedTime.minute}";
+    } else if (selectedTime.hour < 10 && selectedTime.minute < 10) {
+      selectedTimeStr.value = "0${selectedTime.hour}:0${selectedTime.minute}";
+    } else {
+      selectedTimeStr.value = "${selectedTime.hour}:${selectedTime.minute}";
+    }
   }
 
   void changeExpense() {
@@ -73,5 +94,40 @@ class BottomNavController extends GetxController {
   void dispose() {
     //
     super.dispose();
+  }
+
+  void createExpenditure() async {
+    isLoading(true);
+    try {
+      await firestoreService.createExpenditure(ExpenditureModel(
+        note: noteTxtController.text,
+        amount: int.parse(amountTxtController.text),
+        category: categoryList[selectedCategory.value],
+        payment: paymentList[selectedPayment.value],
+        createdDate: DateTime.now().toString(),
+        updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}:00",
+      ));
+      Get.find<HomeController>().getExpenditures();
+      constants.showSnackBar(
+          title: 'Success',
+          msg: "Data intserted successfully.",
+          textColor: secondaryColor);
+      clearData();
+    } catch (e) {
+      constants.showSnackBar(
+          title: 'Error', msg: e.toString(), textColor: Colors.red);
+    }
+    isLoading(false);
+  }
+
+  void clearData() {
+    noteTxtController.clear();
+    amountTxtController.clear();
+    selectedCategory.value = 0;
+    selectedPayment.value = 0;
+    selectedDate = DateTime.now();
+    selectedTime = TimeOfDay.now();
+    formatDate();
+    formatTime();
   }
 }
