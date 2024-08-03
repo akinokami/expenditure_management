@@ -2,7 +2,7 @@ import 'package:expenditure_management/custom_widgets/custom_card.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
-import 'package:expenditure_management/views/calendar/calender_screen.dart';
+import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:expenditure_management/views/profile/profile_screen.dart';
 import 'package:expenditure_management/views/statistical/statistical_screen.dart';
@@ -15,10 +15,8 @@ import 'controller/bottom_nav_controller.dart';
 class BottomNavigationMenu extends StatelessWidget {
   BottomNavigationMenu({super.key});
 
-  final TextStyle unselectedLabelStyle = TextStyle(
-      color: greyColor,
-      fontWeight: FontWeight.w500,
-      fontSize: 11.sp);
+  final TextStyle unselectedLabelStyle =
+      TextStyle(color: greyColor, fontWeight: FontWeight.w500, fontSize: 11.sp);
 
   final TextStyle selectedLabelStyle = TextStyle(
       color: secondaryColor, fontWeight: FontWeight.w500, fontSize: 11.sp);
@@ -90,7 +88,7 @@ class BottomNavigationMenu extends StatelessWidget {
             children: const [
               HomeScreen(),
               StatisticalScreen(),
-              CanlendarScreen(),
+              CalendarScreen(),
               ProfileScreen()
             ],
           )),
