@@ -33,9 +33,6 @@ class FireStoreService {
 
   Future<List<Map<String, dynamic>>> getExpenditures() async {
     QuerySnapshot querySnapshot = await expenditures.get();
-    print(querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList());
     return querySnapshot.docs
         .map((doc) => doc.data() as Map<String, dynamic>)
         .toList();
