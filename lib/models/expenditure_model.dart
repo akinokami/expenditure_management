@@ -93,7 +93,7 @@ class PaymentModel {
 }
 
 class TypeModel {
-  String? id;
+  int? id;
   String? name;
   String? nameVn;
 

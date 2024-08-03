@@ -6,14 +6,17 @@ import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
 import 'package:expenditure_management/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../../controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = TextEditingController();
-    FireStoreService().getExpenditureDocument();
+    final homeController = Get.put(HomeController());
+
     return Scaffold(
         backgroundColor: primaryColor,
         body: Padding(
@@ -24,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: CustomTextField(
-                    controller: controller,
+                    controller: homeController.searchTxtController,
                     fillColor: cardColor,
                   )),
                   kSizedBoxW10,
@@ -71,69 +74,94 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               kSizedBoxH10,
-              Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                          onTap: () {
-                            // matchController.changeIndex(
-                            //     index, appConfigController.mTabList[index].api ?? '');
-                          },
-                          child: CustomCard(
-                            widget: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(
+              Obx(
+                () => homeController.isLoading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : Expanded(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: homeController.expList.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                  onTap: () {
+                                    //
+                                  },
+                                  child: CustomCard(
+                                    widget: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(Icons.category, size: 15.w),
-                                        kSizedBoxW10,
-                                        CustomText(
-                                          fontSize: 10.sp,
-                                          text: 'Income',
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(Icons.category,
+                                                    size: 15.w),
+                                                kSizedBoxW10,
+                                                CustomText(
+                                                  fontSize: 10.sp,
+                                                  text: homeController
+                                                          .expList[index]
+                                                          .category
+                                                          ?.name ??
+                                                      '',
+                                                ),
+                                                kSizedBoxW10,
+                                                Icon(
+                                                  Icons.wallet,
+                                                  size: 15.w,
+                                                ),
+                                                kSizedBoxW10,
+                                                CustomText(
+                                                  fontSize: 10.sp,
+                                                  text: homeController
+                                                          .expList[index]
+                                                          .payment
+                                                          ?.name ??
+                                                      '',
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(Icons.calendar_month,
+                                                    size: 15.w),
+                                                kSizedBoxW10,
+                                                CustomText(
+                                                  fontSize: 8.sp,
+                                                  text: homeController
+                                                          .expList[index]
+                                                          .createdDate ??
+                                                      '',
+                                                ),
+                                                kSizedBoxW10,
+                                                Icon(
+                                                  Icons.watch_later_outlined,
+                                                  size: 15.w,
+                                                ),
+                                                kSizedBoxW10,
+                                                CustomText(
+                                                  fontSize: 8.sp,
+                                                  text: homeController
+                                                          .expList[index]
+                                                          .createdDate ??
+                                                      '',
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
-                                        kSizedBoxW10,
-                                        Icon(
-                                          Icons.wallet,
-                                          size: 15.w,
-                                        ),
-                                        kSizedBoxW10,
                                         CustomText(
-                                          fontSize: 10.sp,
-                                          text: 'Salary',
+                                          text:
+                                              "${homeController.expList[index].amount ?? ''}",
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.calendar_month, size: 15.w),
-                                        kSizedBoxW10,
-                                        CustomText(
-                                          fontSize: 8.sp,
-                                          text: '02-08-2024',
-                                        ),
-                                        kSizedBoxW10,
-                                        Icon(
-                                          Icons.watch_later_outlined,
-                                          size: 15.w,
-                                        ),
-                                        kSizedBoxW10,
-                                        CustomText(
-                                          fontSize: 8.sp,
-                                          text: '12:19',
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                CustomText(text: "+100000 VND"),
-                              ],
-                            ),
-                          ));
-                    }),
+                                  ));
+                            }),
+                      ),
               )
             ],
           ),
