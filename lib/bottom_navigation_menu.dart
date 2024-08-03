@@ -2,9 +2,6 @@ import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/services/category_data.dart';
 import 'package:expenditure_management/services/payment_method_data.dart';
-import 'package:expenditure_management/views/calendar/calender_screen.dart';
-import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
-import 'package:expenditure_management/custom_widgets/custom_text_field.dart';
 import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:expenditure_management/views/profile/profile_screen.dart';
@@ -92,7 +89,7 @@ class BottomNavigationMenu extends StatelessWidget {
               children: const [
                 HomeScreen(),
                 StatisticalScreen(),
-                CanlendarScreen(),
+                CalendarScreen(),
                 ProfileScreen(),
               ],
             )),
