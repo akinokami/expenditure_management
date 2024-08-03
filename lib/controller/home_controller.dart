@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   final searchTxtController = TextEditingController();
   final isLoading = false.obs;
   final firestoreService = FireStoreService();
-  RxList<ExpenditureModel> expList = <ExpenditureModel>[].obs;
+  List<ExpenditureModel> expList = <ExpenditureModel>[].obs;
 
   @override
   void onInit() {

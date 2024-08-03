@@ -1,193 +1,149 @@
-import 'dart:collection';
-
+import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
-import 'package:expenditure_management/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../controller/home_controller.dart';
 
-class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
+class ExpenditureCalendar extends StatefulWidget {
+  final String userId;
+
+  ExpenditureCalendar({required this.userId});
 
   @override
-  State<CalendarScreen> createState() => _CalendarScreenState();
+  _ExpenditureCalendarState createState() => _ExpenditureCalendarState();
 }
 
-class _CalendarScreenState extends State<CalendarScreen> {
-  final homeController = Get.find<HomeController>();
-  final ValueNotifier<List<ExpenditureModel>> _selectedEvents =
-      ValueNotifier([]);
-
-  // Using a `LinkedHashSet` is recommended due to equality comparison override
-  final Set<DateTime> _selectedDays = LinkedHashSet<DateTime>(
-    equals: isSameDay,
-    hashCode: getHashCode,
-  );
-
+class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  Map<DateTime, List<ExpenditureModel>> _expenditures = {};
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _loadExpenditures();
   }
 
-  @override
-  void dispose() {
-    _selectedEvents.dispose();
-    super.dispose();
-  }
-
-  // List<Event> _getEventsForDay(DateTime day) {
-  //   // Implementation example
-  //   return kEvents[day] ?? [];
-  // }
-
-  // List<Event> _getEventsForDays(Set<DateTime> days) {
-  //   // Implementation example
-  //   // Note that days are in selection order (same applies to events)
-  //   return [
-  //     for (final d in days) ..._getEventsForDay(d),
-  //   ];
-  // }
-
-  // void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-  //   setState(() {
-  //     _focusedDay = focusedDay;
-  //     // Update values in a Set
-  //     if (_selectedDays.contains(selectedDay)) {
-  //       _selectedDays.remove(selectedDay);
-  //     } else {
-  //       _selectedDays.add(selectedDay);
-  //     }
-  //   });
-
-  //   _selectedEvents.value = _getEventsForDays(_selectedDays);
-  // }
-
-  List<ExpenditureModel> getEventsForExpenditure(DateTime day) {
-    // Implementation example
-    return kExpenditure[day] ?? [];
-  }
-
-  List<ExpenditureModel> getEventsForExpenditures(Set<DateTime> days) {
-    // Implementation example
-    // Note that days are in selection order (same applies to events)
-    return [
-      for (final d in days) ...getEventsForExpenditure(d),
-    ];
-  }
-
-  void onExpenditureSelected(DateTime selectedDay, DateTime focusedDay) {
+  void _loadExpenditures() async {
+    // Simulating fetching data from Firestore
+    List<ExpenditureModel> data = await fetchExpenditures(widget.userId);
+    Map<DateTime, List<ExpenditureModel>> groupedExpenditures = _groupByDate(data);
     setState(() {
-      _focusedDay = focusedDay;
-      // Update values in a Set
-      if (_selectedDays.contains(selectedDay)) {
-        _selectedDays.remove(selectedDay);
-      } else {
-        _selectedDays.add(selectedDay);
-      }
+      _expenditures = groupedExpenditures;
     });
+    print("zzzzzzzz ${data.length}");
+  }
 
-    _selectedEvents.value = getEventsForExpenditures(_selectedDays);
+  Map<DateTime, List<ExpenditureModel>> _groupByDate(List<ExpenditureModel> expenditures) {
+    Map<DateTime, List<ExpenditureModel>> grouped = {};
+
+    for (var exp in expenditures) {
+      DateTime date = DateTime.parse(exp.updatedDate??"");
+      DateTime formattedDate = DateTime.utc(date.year, date.month, date.day); // Only keep year, month, day
+print("FormateeDate $formattedDate ");
+      if (!grouped.containsKey(formattedDate)) {
+        grouped[formattedDate] = [];
+      }
+      grouped[formattedDate]!.add(exp);
+    }
+
+    return grouped;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Expenditures Calendar'),
+      ),
       body: Column(
         children: [
-          TableCalendar<ExpenditureModel>(
-            firstDay: kToday,
-            lastDay: kLastDay,
+          TableCalendar(
+            firstDay: DateTime.utc(2020, 1, 1),
+            lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
-            calendarFormat: CalendarFormat.month,
-            eventLoader: getEventsForExpenditure,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            selectedDayPredicate: (day) {
-              // Use values from Set to mark multiple days as selected
-              return _selectedDays.contains(day);
+            calendarFormat: _calendarFormat,
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay; // update `_focusedDay` here as well
+                print("Select Day $_selectedDay");
+              });
             },
-            onDaySelected: onExpenditureSelected,
             onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
+              setState(() {
+                _calendarFormat = format;
+              });
             },
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            eventLoader: (day) {
+              return _expenditures[day] ?? [];
+            },
           ),
-          // ElevatedButton(
-          //   child: Text('Clear selection'),
-          //   onPressed: () {
-          //     setState(() {
-          //       _selectedDays.clear();
-          //       _selectedEvents.value = [];
-          //     });
-          //   },
-          // ),
-          SizedBox(height: 8.h),
-          Expanded(
-            child: ValueListenableBuilder<List<ExpenditureModel>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => print('${value[index]}'),
-                        title: Text('${value[index]}'),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          // Expanded(
-          //   child: ValueListenableBuilder<List<Event>>(
-          //     valueListenable: _selectedEvents,
-          //     builder: (context, value, _) {
-          //       return ListView.builder(
-          //         itemCount: value.length,
-          //         itemBuilder: (context, index) {
-          //           return Container(
-          //             margin: const EdgeInsets.symmetric(
-          //               horizontal: 12.0,
-          //               vertical: 4.0,
-          //             ),
-          //             decoration: BoxDecoration(
-          //               border: Border.all(),
-          //               borderRadius: BorderRadius.circular(12.0),
-          //             ),
-          //             child: ListTile(
-          //               onTap: () => print('${value[index]}'),
-          //               title: Text('${value[index]}'),
-          //             ),
-          //           );
-          //         },
-          //       );
-          //     },
-          //   ),
-          // ),
+          const SizedBox(height: 8.0),
+          _buildExpenditureList(),
         ],
       ),
     );
   }
+
+  Widget _buildExpenditureList() {
+    List<ExpenditureModel> selectedExpenditures = _expenditures[_selectedDay] ?? [];
+
+    if((selectedExpenditures.isNotEmpty)){
+      print("${selectedExpenditures[0].updatedDate} xxxxxxxx");
+      return Expanded(
+        child: ListView.builder(
+          itemCount: selectedExpenditures.length,
+          itemBuilder: (context, index) {
+            var exp = selectedExpenditures[index];
+            print("${exp.updatedDate} xxxxxxxx");
+            return ListTile(
+              title: Text(exp.payment?.name??""),
+              subtitle: Text(exp.category?.name??""),
+              trailing: Text('\$${exp.type?.name??""}'),
+            );
+          },
+        ),
+      );
+    }
+    else{
+      return CustomText(text: "NoData");
+    }
+
+
+  }
+}
+
+Future<List<ExpenditureModel>> fetchExpenditures(String userId) async {
+  // Simulate fetching data from Firestore
+  await Future.delayed(Duration(seconds: 1)); // Simulate delay
+return Get.find<HomeController>().expList;
+  // Example data
+  // return [
+  //   {
+  //     'description': 'Groceries',
+  //     'category': 'Food',
+  //     'amount': 50.0,
+  //     'date': DateTime.now(),
+  //   },
+  //   {
+  //     'description': 'Bus Ticket',
+  //     'category': 'Transport',
+  //     'amount': 2.5,
+  //     'date': DateTime.now(),
+  //   },
+  //   {
+  //     'description': 'Coffee',
+  //     'category': 'Food',
+  //     'amount': 5.0,
+  //     'date': DateTime.now(),
+  //   },
+  // ];
 }

@@ -51,7 +51,17 @@ class BottomNavController extends GetxController {
 
   @override
   void onInit() {
-    //
+    if(selectedDate.day<10 && selectedDate.month>9){
+      selectedDateStr.value = "0${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";}
+    else if(selectedDate.month<10 && selectedDate.day>9){
+      selectedDateStr.value = "${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";}
+    else if(selectedDate.day<10 && selectedDate.month<10){
+      selectedDateStr.value = "0${selectedDate.day}-0${selectedDate.month}-${selectedDate.year}";
+    }
+    else {
+      selectedDateStr.value = "${selectedDate.day}-${selectedDate.month}-${selectedDate.year}";
+    }
+    selectedTimeStr.value = "${selectedTime.hour}:${selectedTime.minute}";
     super.onInit();
   }
 

@@ -86,14 +86,16 @@ class BottomNavigationMenu extends StatelessWidget {
             buildBottomNavigationMenu(context, bottomNavController),
         body: Obx(() => IndexedStack(
               index: bottomNavController.tabIndex.value,
-              children: const [
+              children:  [
                 HomeScreen(),
                 StatisticalScreen(),
-                CalendarScreen(),
+                ExpenditureCalendar(userId: "mg1xi0ibayKsc8KnhR4u"),
+                //CalendarScreen(),
                 ProfileScreen(),
               ],
             )),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: secondaryColor,
           onPressed: () {
             showModalBottomSheet(
               backgroundColor: primaryColor,
@@ -107,6 +109,7 @@ class BottomNavigationMenu extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -429,8 +432,8 @@ class BottomNavigationMenu extends StatelessWidget {
                                     Icon(Icons.calendar_month),
                                     Obx(
                                       () => GestureDetector(
-                                        onTap: () =>
-                                            bottomNavController.selectDate(context),
+                                        onTap: () => bottomNavController
+                                            .selectDate(context),
                                         child: Text(bottomNavController
                                             .selectedDateStr.value),
                                       ),
@@ -442,8 +445,8 @@ class BottomNavigationMenu extends StatelessWidget {
                                     Icon(Icons.access_time),
                                     Obx(
                                       () => GestureDetector(
-                                        onTap: () =>
-                                            bottomNavController.selectTime(context),
+                                        onTap: () => bottomNavController
+                                            .selectTime(context),
                                         child: Text(bottomNavController
                                             .selectedTimeStr.value),
                                       ),
@@ -453,16 +456,15 @@ class BottomNavigationMenu extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Add your save action here
-                                },
-                                child: const Text('Save'),
-                              ),
-                            ],
+                          kSizedBoxH30,
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Add your save action here
+                              },
+                              child: const Text('Save'),
+                            ),
                           ),
                         ],
                       ),
@@ -472,7 +474,10 @@ class BottomNavigationMenu extends StatelessWidget {
               },
             );
           },
-          child: const Icon(Icons.add),
+          child: Icon(
+            Icons.add,
+            color: primaryColor,
+          ),
         ),
       ),
     );
