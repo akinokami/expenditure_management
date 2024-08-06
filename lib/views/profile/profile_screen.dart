@@ -1,8 +1,10 @@
 import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/constants/dimen_const.dart';
+import 'package:expenditure_management/controller/language_controller.dart';
 import 'package:expenditure_management/controller/profile_controller.dart';
 import 'package:expenditure_management/custom_widgets/custom_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
+import 'package:expenditure_management/views/profile/change_language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,6 +17,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileController = Get.put(ProfileController());
+    final languageController = Get.put(LanguageController());
     void _shareAppLink() {
       const String appLink = 'https://yourapp.link';
       Share.share('Check out this amazing app: $appLink');
@@ -67,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       CustomButton(
                         outlineColor: primaryColor,
-                        text: "Cancel",
+                        text: 'cancel'.tr,
                         bgColor: redColor,
                         onTap: () {
                           Navigator.pop(context);
@@ -77,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                       CustomButton(
                           outlineColor: primaryColor,
                           bgColor: secondaryColor,
-                          text: "Save",
+                          text: 'save'.tr,
                           onTap: () {
                             Navigator.pop(context);
                           },
@@ -166,6 +169,31 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       ListTile(
                         onTap: () {
+                          Get.to(() => const ChangeLanguageScreen());
+                        },
+                        leading: Icon(Icons.language),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomText(
+                              text: 'language'.tr,
+                            ),
+                            CustomText(
+                              text: languageController.language.value == "vi"
+                                  ? 'vietnam'.tr
+                                  : 'english'.tr,
+                              fontSize: 12.sp,
+                              color: Colors.black87,
+                            ),
+                          ],
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ),
+                      Divider(
+                        color: greyColor,
+                      ),
+                      ListTile(
+                        onTap: () {
                           _showPersistentBottomSheet(context);
                         },
                         leading: Icon(Icons.watch_later_outlined),
@@ -186,7 +214,7 @@ class ProfileScreen extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.delete_outline, color: redColor),
                         title: CustomText(
-                          text: 'Delete all data',
+                          text: 'delete_all_data'.tr,
                           color: redColor,
                         ),
                         trailing:
@@ -198,7 +226,7 @@ class ProfileScreen extends StatelessWidget {
                       ListTile(
                         leading: Icon(Icons.logout_outlined, color: redColor),
                         title: CustomText(
-                          text: 'Sign out',
+                          text: 'sign_out'.tr,
                           color: redColor,
                         ),
                         trailing:

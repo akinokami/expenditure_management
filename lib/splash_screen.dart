@@ -2,6 +2,7 @@ import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 
 import 'controller/splash_screen_controller.dart';
@@ -26,7 +27,7 @@ class SplashScreen extends StatelessWidget {
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             ),
             kSizedBoxH30,
-            const CustomText(text: 'Please wait......', color: Colors.white),
+            CustomText(text: 'please_wait'.tr, color: Colors.white),
           ],
         ),
       ),

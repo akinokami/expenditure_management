@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               height: 20.h,
             ),
             CustomText(
-              text: 'Expenditure Management',
+              text: 'expenditure_management'.tr,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -36,7 +36,7 @@ class LoginScreen extends StatelessWidget {
             ),
             CustomButton(
               image: 'assets/images/google.webp',
-              text: 'Contine with google',
+              text: 'sign_in_with_google'.tr,
               bgColor: Colors.white,
               txtColor: Colors.black,
               onTap: () {

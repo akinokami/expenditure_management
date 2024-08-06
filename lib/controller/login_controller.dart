@@ -17,13 +17,13 @@ class LoginController extends GetxController {
       final user = await GoogleApi.loginWithGoogle();
       print(user);
       if (user != null) {
-        Get.to(() => BottomNavigationMenu());
+        Get.offAll(() => BottomNavigationMenu());
       }
     } catch (e) {
-      Get.to(() => BottomNavigationMenu());
+      Get.offAll(() => BottomNavigationMenu());
       print(e);
       constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: Colors.red);
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     }
   }
 }
