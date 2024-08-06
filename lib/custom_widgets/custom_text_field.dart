@@ -27,7 +27,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 40.h,
+      height: height ?? 50.h,
       child: TextField(
         controller: controller,
         enabled: enabled ?? true,
