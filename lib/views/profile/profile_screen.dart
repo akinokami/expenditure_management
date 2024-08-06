@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 
 import 'package:share_plus/share_plus.dart';
 
+import '../../services/firestore_service.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -156,12 +158,16 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       ListTile(
                         onTap: _shareAppLink,
-                        leading: Icon(Icons.mobile_screen_share_outlined),
+                        leading: Icon(
+                          Icons.mobile_screen_share_outlined,
+                          size: 20.sp,
+                        ),
                         title: CustomText(
-                          text: 'Recommend app to friends',
+                          text: 'recommend_app_to_friends'.tr,
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios,
+                          size: 20.sp,
                         ),
                       ),
                       Divider(
@@ -171,7 +177,10 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () {
                           Get.to(() => const ChangeLanguageScreen());
                         },
-                        leading: Icon(Icons.language),
+                        leading: Icon(
+                          Icons.language,
+                          size: 20.sp,
+                        ),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -187,7 +196,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20.sp,
+                        ),
                       ),
                       Divider(
                         color: greyColor,
@@ -196,11 +208,17 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () {
                           _showPersistentBottomSheet(context);
                         },
-                        leading: Icon(Icons.watch_later_outlined),
-                        title: CustomText(
-                          text: 'Daily reminder',
+                        leading: Icon(
+                          Icons.watch_later_outlined,
+                          size: 20.sp,
                         ),
-                        trailing: Icon(Icons.arrow_forward_ios),
+                        title: CustomText(
+                          text: 'daily_reminder'.tr,
+                        ),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20.sp,
+                        ),
                       ),
                     ],
                   ),
@@ -212,25 +230,87 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        leading: Icon(Icons.delete_outline, color: redColor),
+                        onTap: () {
+                          Get.defaultDialog(
+                              title: 'delete_all_data'.tr,
+                              middleText:
+                                  'are_you_sure_to_delete_all_expenditure_data'
+                                      .tr,
+                              titlePadding: EdgeInsets.all(10.h),
+                              contentPadding: EdgeInsets.all(10.h),
+                              backgroundColor: Colors.white,
+                              titleStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                              ),
+                              middleTextStyle: TextStyle(
+                                  color: Colors.black, fontSize: 12.sp),
+                              textConfirm: 'confirm'.tr,
+                              textCancel: 'cancel'.tr,
+                              cancelTextColor: secondaryColor,
+                              confirmTextColor: Colors.white,
+                              buttonColor: secondaryColor,
+                              barrierDismissible: false,
+                              radius: 10,
+                              onConfirm: () {
+                                profileController.deleteAllUserData(
+                                    docId: 'mg1xi0ibayKsc8sdfdf');
+                              });
+                          // WidgetsBinding.instance
+                          //     .addPostFrameCallback((_) async {
+                          //   showAlertDialog(BuildContext context) {
+                          //     return showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context) {
+                          //         return AlertDialog(
+                          //           title: Text("My title"),
+                          //           content: Text("This is my message."),
+                          //           actions: [
+                          //             TextButton(
+                          //               child: Text("OK"),
+                          //               onPressed: () {},
+                          //             )
+                          //           ],
+                          //         );
+                          //       },
+                          //     );
+                          //   }
+                          // });
+                          //
+                        },
+                        leading: Icon(
+                          Icons.delete_outline,
+                          color: redColor,
+                          size: 20.sp,
+                        ),
                         title: CustomText(
                           text: 'delete_all_data'.tr,
                           color: redColor,
                         ),
-                        trailing:
-                            Icon(Icons.arrow_forward_ios, color: redColor),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: redColor,
+                          size: 20.sp,
+                        ),
                       ),
                       Divider(
                         color: greyColor,
                       ),
                       ListTile(
-                        leading: Icon(Icons.logout_outlined, color: redColor),
+                        leading: Icon(
+                          Icons.logout_outlined,
+                          color: redColor,
+                          size: 20.sp,
+                        ),
                         title: CustomText(
                           text: 'sign_out'.tr,
                           color: redColor,
                         ),
-                        trailing:
-                            Icon(Icons.arrow_forward_ios, color: redColor),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios,
+                          color: redColor,
+                          size: 20.sp,
+                        ),
                       ),
                     ],
                   ),

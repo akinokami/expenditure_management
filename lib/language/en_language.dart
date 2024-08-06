@@ -75,5 +75,11 @@ class EnLanguage {
     'please_wait': 'Please wait......',
     'expenditure_management': 'Expenditure Management',
     'sign_in_with_google': 'Sign in with google',
+    'recommend_app_to_friends': 'Recommend app to friends',
+    'daily_reminder': 'Daily Reminder',
+    'are_you_sure_to_delete_all_expenditure_data':
+        'Are you sure to delete all expenditure data?',
+    'confirm': 'Confirm',
+    'deleted_all_user_data': 'Deleted all user data successfully.'
   };
 }

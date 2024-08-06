@@ -75,5 +75,11 @@ class ViLanguage {
     'please_wait': 'Vui lòng chờ......',
     'expenditure_management': 'Quản lý chi tiêu',
     'sign_in_with_google': 'Đăng nhập bằng Google',
+    'recommend_app_to_friends': 'Giới thiệu ứng dụng cho bạn bè',
+    'daily_reminder': 'Nhắc nhở hàng ngày',
+    'are_you_sure_to_delete_all_expenditure_data':
+        'Bạn có chắc chắn xóa tất cả dữ liệu chi tiêu không?',
+    'confirm': 'Xác nhận',
+    'deleted_all_user_data': 'Đã xóa thành công tất cả dữ liệu người dùng.'
   };
 }
