@@ -5,13 +5,12 @@ import 'package:expenditure_management/services/payment_method_data.dart';
 import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:expenditure_management/views/profile/profile_screen.dart';
-import 'package:expenditure_management/views/statistical/statistical_screen.dart';
+import 'package:expenditure_management/views/statistical/statistical_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'constants/color_const.dart';
 import 'controller/bottom_nav_controller.dart';
-import 'custom_widgets/custom_button.dart';
 
 class BottomNavigationMenu extends StatelessWidget {
   BottomNavigationMenu({super.key});
@@ -88,7 +87,7 @@ class BottomNavigationMenu extends StatelessWidget {
               index: bottomNavController.tabIndex.value,
               children: [
                 HomeScreen(),
-                StatisticalScreen(),
+                StatisticalHomeScreen(),
                 ExpenditureCalendar(userId: "mg1xi0ibayKsc8KnhR4u"),
                 //CalendarScreen(),
                 ProfileScreen(),
