@@ -9,16 +9,16 @@ class FireStoreService {
       .collection('users')
       .doc(GoogleApi.user?.uid)
       .collection('expenditure');
+Future <List<Map<String,Map<String,dynamic>>>> getExpenditures() async{
+  QuerySnapshot querySnapshot = await expenditures.get();
+  print(querySnapshot);
 
-  Future<List<Map<String, dynamic>>> getExpenditures() async {
-    QuerySnapshot querySnapshot = await expenditures.get();
-    print(querySnapshot);
-
-    return querySnapshot.docs.map((doc) {
-      Global.docIdList.add(doc.id.toString());
-      return doc.data() as Map<String, dynamic>;
-    }).toList();
+  return querySnapshot.docs.map((doc) {
+   // Global.docIdList.add(doc.id.toString());
+   return {doc.id: doc.data() as Map<String, dynamic>};
+  }).toList();
   }
+
 
   Future<void> createExpenditure(ExpenditureModel expenditureModel) async {
     await expenditures.add(expenditureModel.toJson());
