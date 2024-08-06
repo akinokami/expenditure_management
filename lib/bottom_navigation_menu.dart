@@ -1,6 +1,7 @@
 import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/services/category_data.dart';
+import 'package:expenditure_management/services/google_api.dart';
 import 'package:expenditure_management/services/payment_method_data.dart';
 import 'package:expenditure_management/utils/constants.dart';
 import 'package:expenditure_management/views/calendar/calendar_screen.dart';
@@ -89,7 +90,7 @@ class BottomNavigationMenu extends StatelessWidget {
               children: [
                 HomeScreen(),
                 StatisticalHomeScreen(),
-                ExpenditureCalendar(userId: "mg1xi0ibayKsc8KnhR4u"),
+                ExpenditureCalendar(userId: GoogleApi.user?.uid ?? ''),
                 //CalendarScreen(),
                 ProfileScreen(),
               ],
@@ -463,11 +464,14 @@ class BottomNavigationMenu extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: ElevatedButton(
                               onPressed: () {
-                                if(bottomNavController.amountTxtController.text.isNotEmpty) {
+                                if (bottomNavController
+                                    .amountTxtController.text.isNotEmpty) {
                                   bottomNavController.createExpenditure();
-                                }else{
+                                } else {
                                   constants.showSnackBar(
-                                      title: 'Error', msg: "Amount must be fill", textColor: Colors.red);
+                                      title: 'Error',
+                                      msg: "Amount must be fill",
+                                      textColor: Colors.red);
                                 }
                               },
                               child: const Text('Save'),
