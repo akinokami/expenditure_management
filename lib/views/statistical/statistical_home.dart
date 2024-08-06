@@ -14,11 +14,8 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          StatisticalScreen(),
-          PieChartScreen()
-        ],
+      body: ListView(
+        children: [StatisticalScreen(), PieChartScreen()],
       ),
     );
   }
