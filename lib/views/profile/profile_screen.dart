@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../services/firestore_service.dart';
+import '../../services/google_api.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -122,13 +123,13 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {},
                     child: Center(
                         child: CustomText(
-                      text: "N",
+                      text: (GoogleApi.user?.displayName ?? '').substring(0, 1),
                       fontSize: 16.sp,
                     )),
                   ),
                 ),
                 title: Text(
-                  'Nguyễn Văn A',
+                  GoogleApi.user?.displayName ?? '',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,

@@ -20,8 +20,6 @@ class LoginController extends GetxController {
         Get.offAll(() => BottomNavigationMenu());
       }
     } catch (e) {
-      Get.offAll(() => BottomNavigationMenu());
-      print(e);
       constants.showSnackBar(
           title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     }
