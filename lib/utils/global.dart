@@ -1,6 +1,6 @@
 class Global {
   static String policyEn =
-  '''\t\t\tThis page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service. If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
+      '''\t\t\tThis page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service. If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
 \t\t\tThe terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at MKSports Live unless otherwise defined in this Privacy Policy.
 Information Collection and Use For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.
 The app does use third-party services that may collect information used to identify you.
@@ -32,7 +32,7 @@ I may update our Privacy Policy from time to time. Thus, you are advised to revi
 ''';
 
   static String policyViet =
-  '''\t\t\tTrang này được sử dụng để thông báo cho khách truy cập về các chính sách của tôi về việc thu thập, sử dụng và tiết lộ Thông tin cá nhân nếu có ai quyết định sử dụng Dịch vụ của tôi. Nếu bạn chọn sử dụng Dịch vụ của tôi thì bạn đồng ý với việc thu thập và sử dụng thông tin liên quan đến chính sách này. Thông tin cá nhân mà tôi thu thập được sử dụng để cung cấp và cải thiện Dịch vụ. Tôi sẽ không sử dụng hoặc chia sẻ thông tin của bạn với bất kỳ ai ngoại trừ những trường hợp được mô tả trong Chính sách quyền riêng tư này.
+      '''\t\t\tTrang này được sử dụng để thông báo cho khách truy cập về các chính sách của tôi về việc thu thập, sử dụng và tiết lộ Thông tin cá nhân nếu có ai quyết định sử dụng Dịch vụ của tôi. Nếu bạn chọn sử dụng Dịch vụ của tôi thì bạn đồng ý với việc thu thập và sử dụng thông tin liên quan đến chính sách này. Thông tin cá nhân mà tôi thu thập được sử dụng để cung cấp và cải thiện Dịch vụ. Tôi sẽ không sử dụng hoặc chia sẻ thông tin của bạn với bất kỳ ai ngoại trừ những trường hợp được mô tả trong Chính sách quyền riêng tư này.
 \t\t\tCác điều khoản được sử dụng trong Chính sách quyền riêng tư này có cùng ý nghĩa như trong Điều khoản và Điều kiện của chúng tôi, có thể truy cập được tại MKSports Live trừ khi được quy định khác trong Chính sách quyền riêng tư này.
 Thu thập và sử dụng thông tin Để có trải nghiệm tốt hơn, khi sử dụng Dịch vụ của chúng tôi, tôi có thể yêu cầu bạn cung cấp cho chúng tôi một số thông tin nhận dạng cá nhân nhất định. Thông tin mà tôi yêu cầu sẽ được lưu giữ trên thiết bị của bạn và không được tôi thu thập dưới bất kỳ hình thức nào.
 Ứng dụng sử dụng các dịch vụ của bên thứ ba có thể thu thập thông tin dùng để nhận dạng bạn.
@@ -65,7 +65,7 @@ Thỉnh thoảng tôi có thể cập nhật Chính sách quyền riêng tư c�
 ''';
 
   static String policyCn =
-  '''\t\t\t如果有人决定使用我的服务，此页面用于告知访问者我的个人信息收集、使用和披露政策。如果您选择使用我的服务，则您同意收集和使用与本政策相关的信息。我收集的个人信息用于提供和改进服务。除本隐私政策所述之外，我不会与任何人使用或分享您的信息。
+      '''\t\t\t如果有人决定使用我的服务，此页面用于告知访问者我的个人信息收集、使用和披露政策。如果您选择使用我的服务，则您同意收集和使用与本政策相关的信息。我收集的个人信息用于提供和改进服务。除本隐私政策所述之外，我不会与任何人使用或分享您的信息。
 \t\t\t除非本隐私政策中另有定义，本隐私政策中使用的术语与我们的条款和条件具有相同的含义，这些条款和条件可在 MKSports Live 上访问。
 信息收集和使用为了获得更好的体验，在使用我们的服务时，我可能会要求您向我们提供某些个人身份信息。我请求的信息将保留在您的设备上，我不会以任何方式收集。
 该应用程序确实使用第三方服务，这些服务可能会收集用于识别您身份的信息。
@@ -104,4 +104,6 @@ Cookies 是包含少量数据的文件，通常用作匿名唯一标识符。这
   static double screenHeight = 0.0;
   static double x = 0.0;
   static double y = 0.0;
+
+  static List<String> docIdList = [];
 }

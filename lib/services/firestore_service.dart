@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:expenditure_management/utils/global.dart';
 
 class FireStoreService {
   CollectionReference expenditures = FirebaseFirestore.instance
@@ -10,23 +10,21 @@ class FireStoreService {
 
   Future<List<Map<String, dynamic>>> getExpenditures() async {
     QuerySnapshot querySnapshot = await expenditures.get();
-    return querySnapshot.docs
-        .map((doc) => doc.data() as Map<String, dynamic>)
-        .toList();
+    print(querySnapshot);
+
+    return querySnapshot.docs.map((doc) {
+      Global.docIdList.add(doc.id.toString());
+      return doc.data() as Map<String, dynamic>;
+    }).toList();
   }
 
   Future<void> createExpenditure(ExpenditureModel expenditureModel) async {
     await expenditures.add(expenditureModel.toJson());
   }
 
-  Future<void> updateExpenditure(String docId, String title, String amount,
-      String category, String date) async {
-    await expenditures.doc(docId).update({
-      'title': title,
-      'amount': amount,
-      'category': category,
-      'date': date,
-    });
+  Future<void> updateExpenditure(
+      String docId, ExpenditureModel expenditureModel) async {
+    await expenditures.doc(docId).update(expenditureModel.toJson());
   }
 
   Future<void> deleteExpenditure(String docId) async {

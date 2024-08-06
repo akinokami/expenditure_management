@@ -3,12 +3,12 @@ import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/controller/profile_controller.dart';
 import 'package:expenditure_management/custom_widgets/custom_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
-import 'package:expenditure_management/custom_widgets/custom_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:share_plus/share_plus.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -19,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
       const String appLink = 'https://yourapp.link';
       Share.share('Check out this amazing app: $appLink');
     }
+
     void _showPersistentBottomSheet(BuildContext context) {
       showBottomSheet(
         shape: RoundedRectangleBorder(
@@ -32,35 +33,35 @@ class ProfileScreen extends StatelessWidget {
           return Container(
             decoration: BoxDecoration(
               color: greyColor.withOpacity(0.5),
-              borderRadius:  BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20.r),
                 topRight: Radius.circular(20.r),
               ),
             ),
             height: 200.h,
-
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Obx(() => CustomText(
-                    text: 'Selected Time: ${profileController.formattedTime}',
-                    color: primaryColor,
-                    fontSize: 16.sp,
-                  )),
+                        text:
+                            'Selected Time: ${profileController.formattedTime}',
+                        color: primaryColor,
+                        fontSize: 16.sp,
+                      )),
                   Obx(() => Slider(
-                    activeColor: secondaryColor,
-                    inactiveColor: secondaryColor,
-                    value: profileController.sliderValue.value,
-                    min: 0,
-                    max: 1439, // 24 hours * 60 minutes - 1
-                    divisions: 1439,
-                    label: profileController.formattedTime,
-                    onChanged: (v) {
-                      profileController.setSliderValue(v);
-                    },
-                  )),
+                        activeColor: secondaryColor,
+                        inactiveColor: secondaryColor,
+                        value: profileController.sliderValue.value,
+                        min: 0,
+                        max: 1439, // 24 hours * 60 minutes - 1
+                        divisions: 1439,
+                        label: profileController.formattedTime,
+                        onChanged: (v) {
+                          profileController.setSliderValue(v);
+                        },
+                      )),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -151,7 +152,7 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        onTap:_shareAppLink,
+                        onTap: _shareAppLink,
                         leading: Icon(Icons.mobile_screen_share_outlined),
                         title: CustomText(
                           text: 'Recommend app to friends',

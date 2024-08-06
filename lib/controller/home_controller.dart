@@ -1,3 +1,4 @@
+import 'package:expenditure_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,8 +21,10 @@ class HomeController extends GetxController {
   void getExpenditures() async {
     isLoading(true);
     try {
+      Global.docIdList.clear();
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
+      print(result);
       expList
           .assignAll(result.map((e) => ExpenditureModel.fromJson(e)).toList());
     } catch (e) {
