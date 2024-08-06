@@ -1,4 +1,6 @@
+import 'package:expenditure_management/views/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleApi {
@@ -24,5 +26,6 @@ class GoogleApi {
   Future<void> logout() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+    Get.offAll(() => const LoginScreen());
   }
 }

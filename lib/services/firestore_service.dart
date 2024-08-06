@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:expenditure_management/services/google_api.dart';
 import 'package:expenditure_management/utils/global.dart';
+import 'package:get_storage/get_storage.dart';
 
 class FireStoreService {
   CollectionReference user = FirebaseFirestore.instance.collection('users');
   CollectionReference expenditures = FirebaseFirestore.instance
       .collection('users')
-      .doc(GoogleApi.user?.uid)
+      .doc(Global.uid)
       .collection('expenditure');
 
   Future<List<Map<String, dynamic>>> getExpenditures() async {
@@ -15,7 +16,7 @@ class FireStoreService {
     print(querySnapshot);
 
     return querySnapshot.docs.map((doc) {
-      Global.docIdList.add(doc.id.toString());
+      // Global.docIdList.add(doc.id.toString());
       return doc.data() as Map<String, dynamic>;
     }).toList();
   }

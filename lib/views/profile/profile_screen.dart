@@ -13,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../services/firestore_service.dart';
 import '../../services/google_api.dart';
+import '../../utils/global.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -117,19 +118,21 @@ class ProfileScreen extends StatelessWidget {
                   height: 50.h,
                   decoration: BoxDecoration(
                     color: secondaryColor,
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(100),
                   ),
                   child: GestureDetector(
                     onTap: () {},
                     child: Center(
                         child: CustomText(
-                      text: (GoogleApi.user?.displayName ?? '').substring(0, 1),
+                      text: Global.name != ''
+                          ? (Global.name).substring(0, 1)
+                          : '',
                       fontSize: 16.sp,
                     )),
                   ),
                 ),
                 title: Text(
-                  GoogleApi.user?.displayName ?? '',
+                  Global.name,
                   textAlign: TextAlign.left,
                   style: TextStyle(
                       color: Colors.black,
@@ -255,7 +258,7 @@ class ProfileScreen extends StatelessWidget {
                               radius: 10,
                               onConfirm: () {
                                 profileController.deleteAllUserData(
-                                    docId: 'mg1xi0ibayKsc8sdfdf');
+                                    docId: GoogleApi.user?.uid ?? '');
                               });
                           // WidgetsBinding.instance
                           //     .addPostFrameCallback((_) async {
@@ -298,6 +301,9 @@ class ProfileScreen extends StatelessWidget {
                         color: greyColor,
                       ),
                       ListTile(
+                        onTap: () {
+                          GoogleApi().logout();
+                        },
                         leading: Icon(
                           Icons.logout_outlined,
                           color: redColor,

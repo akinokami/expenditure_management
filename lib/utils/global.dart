@@ -106,4 +106,9 @@ Cookies 是包含少量数据的文件，通常用作匿名唯一标识符。这
   static double y = 0.0;
 
   static List<String> docIdList = [];
+
+  static String uid = '';
+  static String name = '';
+  static String email = '';
+  static String photo = '';
 }
