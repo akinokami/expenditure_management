@@ -110,18 +110,9 @@ class ProfileScreen extends StatelessWidget {
             ),
             child: Center(
               child: ListTile(
-                leading: Container(
-                  width: 50.w,
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                    color: secondaryColor,
+                leading: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Image.network(G),
-                  ),
-                ),
+                    child: Image.network(Global.photo)),
                 title: Text(
                   Global.name,
                   textAlign: TextAlign.left,
