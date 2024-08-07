@@ -29,19 +29,19 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
   @override
   void initState() {
     super.initState();
-    _loadExpenditures();
+    // _loadExpenditures();
   }
 
-  void _loadExpenditures() async {
-    // Simulating fetching data from Firestore
-    List<ExpenditureModel> data = await fetchExpenditures(widget.userId);
-    Map<DateTime, List<ExpenditureModel>> groupedExpenditures =
-        _groupByDate(data);
-    setState(() {
-      _expenditures = groupedExpenditures;
-    });
-    print("zzzzzzzz ${data.length}");
-  }
+  // void _loadExpenditures() async {
+  //   // Simulating fetching data from Firestore
+  //  // List<ExpenditureModel> data = await fetchExpenditures(widget.userId);
+  //   Map<DateTime, List<ExpenditureModel>> groupedExpenditures =
+  //       _groupByDate(data);
+  //   setState(() {
+  //     _expenditures = groupedExpenditures;
+  //   });
+  //   print("zzzzzzzz ${data.length}");
+  // }
 
   Map<DateTime, List<ExpenditureModel>> _groupByDate(
       List<ExpenditureModel> expenditures) {
@@ -241,29 +241,9 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
   }
 }
 
-Future<List<ExpenditureModel>> fetchExpenditures(String userId) async {
-  // Simulate fetching data from Firestore
-  await Future.delayed(Duration(seconds: 1)); // Simulate delay
-  return Get.find<HomeController>().expList;
-  // Example data
-  // return [
-  //   {
-  //     'description': 'Groceries',
-  //     'category': 'Food',
-  //     'amount': 50.0,
-  //     'date': DateTime.now(),
-  //   },
-  //   {
-  //     'description': 'Bus Ticket',
-  //     'category': 'Transport',
-  //     'amount': 2.5,
-  //     'date': DateTime.now(),
-  //   },
-  //   {
-  //     'description': 'Coffee',
-  //     'category': 'Food',
-  //     'amount': 5.0,
-  //     'date': DateTime.now(),
-  //   },
-  // ];
-}
+// Future<List<ExpenditureModel>> fetchExpenditures(String userId) async {
+
+//   await Future.delayed(Duration(seconds: 1)); 
+//   return Get.find<HomeController>().expList;
+
+// }

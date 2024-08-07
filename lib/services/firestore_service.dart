@@ -11,13 +11,26 @@ class FireStoreService {
       .doc(Global.uid)
       .collection('expenditure');
 
+  // Future<List<Map<String, Map<String, dynamic>>>> getExpenditures() async {
+  //   QuerySnapshot querySnapshot =
+  //       await expenditures.orderBy('updated_date', descending: true).get();
+  //   print(querySnapshot);
+
+  //   return querySnapshot.docs.map((doc) {
+  //     // Global.docIdList.add(doc.id.toString());
+  //     return {doc.id: doc.data() as Map<String, dynamic>};
+  //   }).toList();
+  // }
+
   Future<List<Map<String, dynamic>>> getExpenditures() async {
-    QuerySnapshot querySnapshot = await expenditures.get();
-    print(querySnapshot);
+    QuerySnapshot querySnapshot =
+        await expenditures.orderBy('updated_date', descending: true).get();
 
     return querySnapshot.docs.map((doc) {
-      // Global.docIdList.add(doc.id.toString());
-      return doc.data() as Map<String, dynamic>;
+      return {
+        'docId': doc.id.toString(),
+        'expm': doc.data() as Map<String, dynamic>
+      };
     }).toList();
   }
 

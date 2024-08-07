@@ -1,4 +1,5 @@
 class ExpenditureModel {
+  String? docId;
   String? note;
   int? amount;
   PaymentModel? payment;
@@ -8,7 +9,8 @@ class ExpenditureModel {
   String? updatedDate;
 
   ExpenditureModel(
-      {this.note,
+      {this.docId,
+      this.note,
       this.amount,
       this.payment,
       this.category,

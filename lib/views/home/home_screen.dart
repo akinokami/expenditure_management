@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                     hintText: "Search",
                     onChanged: (va) {
                       homeController.searchList.clear();
-                      homeController.searchExpenditures();
+                      //homeController.searchExpenditures();
                     },
                     controller: homeController.searchTxtController,
                     fillColor: cardColor,
@@ -56,726 +56,765 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               kSizedBoxH10,
-              Expanded(
-                child: ListView(
-                  children: homeController.grouped.keys.map((date) {
-                    return Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                          ),
-                          width: double.infinity,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                              color: secondaryColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CustomText(
-                                  text: "${date.month}/${date.year}",
-                                  color: primaryColor),
-                              Row(
-                                children: [
-                                  CustomText(
-                                    text: "-9999999 VND",
-                                    color: primaryColor,
+              Obx(
+                () => homeController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: homeController.expGroupList.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w,
                                   ),
-                                  kSizedBoxW10,
-                                  Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    color: primaryColor,
-                                    size: 15.w,
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Obx(() => homeController.isLoading.value
-                            ? const Center(child: CircularProgressIndicator())
-                            : SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height * .6,
-                          child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount:
-                              homeController.searchList.isNotEmpty
-                                  ? homeController.searchList.length
-                                  : homeController.expList.length,
-                              itemBuilder: (context, index) {
-                                print(
-                                    "Search list length ${homeController.searchList.length}");
-                                return Slidable(
-                                  key: ValueKey(index),
-                                  endActionPane: ActionPane(
-                                    motion: ScrollMotion(),
+                                  width: double.infinity,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                      color: secondaryColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SlidableAction(
-                                        onPressed: (context) {
-                                          expUpdateController
-                                              .deleteExpenditure(
-                                              docId:
-                                              Global.docIdList[
-                                              index]);
-                                        },
-                                        backgroundColor: Colors.red,
-                                        foregroundColor: Colors.white,
-                                        icon: Icons.delete,
-                                        label: 'Delete',
-                                      ),
+                                      CustomText(
+                                          text: homeController
+                                                  .expGroupList[index].month ??
+                                              '',
+                                          color: primaryColor),
+                                      Row(
+                                        children: [
+                                          CustomText(
+                                            text: "1000 VND",
+                                            color: primaryColor,
+                                          ),
+                                          kSizedBoxW10,
+                                          Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: primaryColor,
+                                            size: 15.w,
+                                          )
+                                        ],
+                                      )
                                     ],
                                   ),
-                                  child: GestureDetector(
-                                      onTap: () {
-                                        expUpdateController.updateInitial(
-                                            expenditureModel:
-                                            homeController
-                                                .searchList
-                                                .isNotEmpty
-                                                ? homeController
-                                                .searchList[
-                                            index]
-                                                : homeController
-                                                .expList[
-                                            index]);
-                                        showModalBottomSheet(
-                                          backgroundColor: primaryColor,
-                                          context: context,
-                                          isScrollControlled: true,
-                                          builder: (context) {
-                                            return FractionallySizedBox(
-                                              heightFactor: 0.9,
-                                              child: Container(
-                                                padding: EdgeInsets.all(
-                                                    16.w),
-                                                child:
-                                                SingleChildScrollView(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .center,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                    children: [
-                                                      Row(
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: homeController
+                                      .expGroupList[index].expList?.length,
+                                  itemBuilder: ((context, index1) {
+                                    return Slidable(
+                                      key: ValueKey(index),
+                                      endActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              expUpdateController
+                                                  .deleteExpenditure(
+                                                      docId: homeController
+                                                              .expGroupList[
+                                                                  index]
+                                                              .expList?[index1]
+                                                              .docId ??
+                                                          '');
+                                            },
+                                            backgroundColor: Colors.red,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete,
+                                            label: 'delete'.tr,
+                                          ),
+                                        ],
+                                      ),
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            // expUpdateController.updateInitial(
+                                            //     expenditureModel:
+                                            //         homeController.searchList
+                                            //                 .isNotEmpty
+                                            //             ? homeController
+                                            //                 .searchList[index]
+                                            //             : homeController
+                                            //                 .expList[index]);
+                                            showModalBottomSheet(
+                                              backgroundColor: primaryColor,
+                                              context: context,
+                                              isScrollControlled: true,
+                                              builder: (context) {
+                                                return FractionallySizedBox(
+                                                  heightFactor: 0.9,
+                                                  child: Container(
+                                                    padding:
+                                                        EdgeInsets.all(16.w),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
                                                         children: [
-                                                          Obx(
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Obx(
                                                                 () =>
-                                                                GestureDetector(
-                                                                  onTap:
-                                                                      () {
+                                                                    GestureDetector(
+                                                                  onTap: () {
                                                                     expUpdateController
                                                                         .changeExpense();
                                                                   },
                                                                   child:
-                                                                  Container(
+                                                                      Container(
                                                                     padding: EdgeInsets.symmetric(
                                                                         vertical:
-                                                                        5.h,
-                                                                        horizontal: 15.w),
+                                                                            5.h,
+                                                                        horizontal:
+                                                                            15.w),
                                                                     decoration:
-                                                                    BoxDecoration(
-                                                                      color: expUpdateController.isExpense.value
+                                                                        BoxDecoration(
+                                                                      color: expUpdateController
+                                                                              .isExpense
+                                                                              .value
                                                                           ? secondaryColor
                                                                           : cardColor,
                                                                       borderRadius:
-                                                                      const BorderRadius.only(
+                                                                          const BorderRadius
+                                                                              .only(
                                                                         topLeft:
-                                                                        Radius.circular(10),
+                                                                            Radius.circular(10),
                                                                         bottomLeft:
-                                                                        Radius.circular(10),
+                                                                            Radius.circular(10),
                                                                       ),
                                                                     ),
                                                                     child:
-                                                                    CustomText(
+                                                                        CustomText(
                                                                       text:
-                                                                      "Expense",
+                                                                          "Expense",
                                                                       fontSize:
-                                                                      16.sp,
+                                                                          16.sp,
                                                                       color:
-                                                                      primaryColor,
+                                                                          primaryColor,
                                                                       fontWeight:
-                                                                      FontWeight.bold,
+                                                                          FontWeight
+                                                                              .bold,
                                                                       textAlign:
-                                                                      TextAlign.center,
+                                                                          TextAlign
+                                                                              .center,
                                                                     ),
                                                                   ),
                                                                 ),
+                                                              ),
+                                                              Obx(() =>
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      expUpdateController
+                                                                          .changeExpense();
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          vertical: 5
+                                                                              .h,
+                                                                          horizontal:
+                                                                              15.w),
+                                                                      decoration: BoxDecoration(
+                                                                          color: expUpdateController.isExpense.value ? cardColor : secondaryColor,
+                                                                          borderRadius: const BorderRadius.only(
+                                                                            topRight:
+                                                                                Radius.circular(10),
+                                                                            bottomRight:
+                                                                                Radius.circular(10),
+                                                                          )),
+                                                                      child:
+                                                                          CustomText(
+                                                                        text:
+                                                                            "Income",
+                                                                        fontSize:
+                                                                            16.sp,
+                                                                        color:
+                                                                            primaryColor,
+                                                                        fontWeight:
+                                                                            FontWeight.bold,
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                    ),
+                                                                  )),
+                                                            ],
                                                           ),
-                                                          Obx(() =>
-                                                              GestureDetector(
-                                                                onTap:
-                                                                    () {
-                                                                  expUpdateController
-                                                                      .changeExpense();
-                                                                },
-                                                                child:
-                                                                Container(
-                                                                  padding: EdgeInsets.symmetric(
-                                                                      vertical: 5.h,
-                                                                      horizontal: 15.w),
-                                                                  decoration: BoxDecoration(
-                                                                      color: expUpdateController.isExpense.value ? cardColor : secondaryColor,
-                                                                      borderRadius: const BorderRadius.only(
-                                                                        topRight: Radius.circular(10),
-                                                                        bottomRight: Radius.circular(10),
-                                                                      )),
+                                                          SizedBox(
+                                                              height: 10.h),
+                                                          SizedBox(
+                                                              height: 10.h),
+                                                          TextField(
+                                                            controller:
+                                                                expUpdateController
+                                                                    .amountTxtController,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              filled: true,
+                                                              fillColor:
+                                                                  cardColor,
+                                                              suffixText:
+                                                                  "\u20AB",
+                                                              label: CustomText(
+                                                                text: "Amount",
+                                                                fontSize: 16.sp,
+                                                                color:
+                                                                    greyColor,
+                                                              ),
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              disabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                          ),
+                                                          SizedBox(
+                                                              height: 10.h),
+                                                          TextField(
+                                                            controller:
+                                                                expUpdateController
+                                                                    .noteTxtController,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              filled: true,
+                                                              fillColor:
+                                                                  cardColor,
+                                                              label: CustomText(
+                                                                text: "Note",
+                                                                fontSize: 16.sp,
+                                                                color:
+                                                                    greyColor,
+                                                              ),
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                              disabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide: const BorderSide(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    style: BorderStyle
+                                                                        .none),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.r),
+                                                              ),
+                                                            ),
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .text,
+                                                          ),
+                                                          kSizedBoxH10,
+                                                          ExpansionTile(
+                                                              backgroundColor:
+                                                                  cardColor,
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .r)),
+                                                              collapsedBackgroundColor:
+                                                                  cardColor,
+                                                              collapsedShape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .r)),
+                                                              title: Text(
+                                                                  "Category"),
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(8
+                                                                              .w),
                                                                   child:
-                                                                  CustomText(
-                                                                    text:
-                                                                    "Income",
-                                                                    fontSize:
-                                                                    16.sp,
+                                                                      SizedBox(
+                                                                    height:
+                                                                        260.h,
+                                                                    child: GridView.builder(
+                                                                        physics: NeverScrollableScrollPhysics(),
+                                                                        itemCount: categoryList.length,
+                                                                        shrinkWrap: true,
+                                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
+                                                                        itemBuilder: (context, index) {
+                                                                          return Obx(
+                                                                            () =>
+                                                                                GestureDetector(
+                                                                              onTap: () {
+                                                                                expUpdateController.selectedCategory.value = categoryList[index];
+                                                                              },
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.all(2.w),
+                                                                                decoration: BoxDecoration(
+                                                                                  color: expUpdateController.selectedCategory.value.id == categoryList[index].id ? secondaryColor : greyColor,
+                                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                                ),
+                                                                                child: Center(
+                                                                                  child: CustomText(
+                                                                                    text: categoryList[index].name ?? "",
+                                                                                    fontSize: 10.sp,
+                                                                                    color: primaryColor,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                  ),
+                                                                )
+                                                              ]),
+                                                          kSizedBoxH10,
+                                                          Obx(
+                                                            () => Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: 100.w,
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(5
+                                                                              .w),
+                                                                  decoration:
+                                                                      BoxDecoration(
                                                                     color:
-                                                                    primaryColor,
-                                                                    fontWeight:
-                                                                    FontWeight.bold,
-                                                                    textAlign:
-                                                                    TextAlign.center,
+                                                                        secondaryColor,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.r),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child:
+                                                                        CustomText(
+                                                                      text: expUpdateController
+                                                                              .selectedCategory
+                                                                              .value
+                                                                              .name ??
+                                                                          "",
+                                                                      fontSize:
+                                                                          10.sp,
+                                                                      color:
+                                                                          primaryColor,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              )),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                          height: 10.h),
-                                                      SizedBox(
-                                                          height: 10.h),
-                                                      TextField(
-                                                        controller:
-                                                        expUpdateController
-                                                            .amountTxtController,
-                                                        decoration:
-                                                        InputDecoration(
-                                                          filled: true,
-                                                          fillColor:
-                                                          cardColor,
-                                                          suffixText:
-                                                          "\u20AB",
-                                                          label:
-                                                          CustomText(
-                                                            text:
-                                                            "Amount",
-                                                            fontSize:
-                                                            16.sp,
-                                                            color:
-                                                            greyColor,
-                                                          ),
-                                                          border:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          enabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          focusedBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          disabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                        ),
-                                                        keyboardType:
-                                                        TextInputType
-                                                            .number,
-                                                      ),
-                                                      SizedBox(
-                                                          height: 10.h),
-                                                      TextField(
-                                                        controller:
-                                                        expUpdateController
-                                                            .noteTxtController,
-                                                        decoration:
-                                                        InputDecoration(
-                                                          filled: true,
-                                                          fillColor:
-                                                          cardColor,
-                                                          label:
-                                                          CustomText(
-                                                            text:
-                                                            "Note",
-                                                            fontSize:
-                                                            16.sp,
-                                                            color:
-                                                            greyColor,
-                                                          ),
-                                                          border:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          enabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          focusedBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                          disabledBorder:
-                                                          OutlineInputBorder(
-                                                            borderSide: const BorderSide(
-                                                                color: Colors
-                                                                    .white,
-                                                                style: BorderStyle
-                                                                    .none),
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                10.r),
-                                                          ),
-                                                        ),
-                                                        keyboardType:
-                                                        TextInputType
-                                                            .text,
-                                                      ),
-                                                      kSizedBoxH10,
-                                                      ExpansionTile(
-                                                          backgroundColor:
-                                                          cardColor,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(10
-                                                                  .r)),
-                                                          collapsedBackgroundColor:
-                                                          cardColor,
-                                                          collapsedShape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(10
-                                                                  .r)),
-                                                          title: Text(
-                                                              "Category"),
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(8
-                                                                  .w),
-                                                              child:
-                                                              SizedBox(
-                                                                height:
-                                                                260.h,
-                                                                child: GridView.builder(
-                                                                    physics: NeverScrollableScrollPhysics(),
-                                                                    itemCount: categoryList.length,
-                                                                    shrinkWrap: true,
-                                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
-                                                                    itemBuilder: (context, index) {
-                                                                      return Obx(
-                                                                            () => GestureDetector(
-                                                                          onTap: () {
-                                                                            expUpdateController.selectedCategory.value = categoryList[index];
-                                                                          },
-                                                                          child: Container(
-                                                                            padding: EdgeInsets.all(2.w),
-                                                                            decoration: BoxDecoration(
-                                                                              color: expUpdateController.selectedCategory.value.id == categoryList[index].id ? secondaryColor : greyColor,
-                                                                              borderRadius: BorderRadius.circular(10.r),
-                                                                            ),
-                                                                            child: Center(
-                                                                              child: CustomText(
-                                                                                text: categoryList[index].name ?? "",
-                                                                                fontSize: 10.sp,
-                                                                                color: primaryColor,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                              ),
-                                                            )
-                                                          ]),
-                                                      kSizedBoxH10,
-                                                      Obx(
-                                                            () => Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                          children: [
-                                                            Container(
-                                                              width:
-                                                              100.w,
-                                                              padding: EdgeInsets
-                                                                  .all(5
-                                                                  .w),
-                                                              decoration:
-                                                              BoxDecoration(
-                                                                color:
-                                                                secondaryColor,
-                                                                borderRadius:
-                                                                BorderRadius.circular(10.r),
-                                                              ),
-                                                              child:
-                                                              Center(
-                                                                child:
-                                                                CustomText(
-                                                                  text: expUpdateController.selectedCategory.value.name ??
-                                                                      "",
-                                                                  fontSize:
-                                                                  10.sp,
-                                                                  color:
-                                                                  primaryColor,
-                                                                ),
-                                                              ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      kSizedBoxH10,
-                                                      ExpansionTile(
-                                                          backgroundColor:
-                                                          cardColor,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(10
-                                                                  .r)),
-                                                          collapsedBackgroundColor:
-                                                          cardColor,
-                                                          collapsedShape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(10
-                                                                  .r)),
-                                                          title: Text(
-                                                              "Payment Method"),
-                                                          children: [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(8
-                                                                  .w),
-                                                              child:
-                                                              SizedBox(
-                                                                height:
-                                                                100.h,
-                                                                child: GridView.builder(
-                                                                    itemCount: paymentList.length,
-                                                                    shrinkWrap: true,
-                                                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
-                                                                    itemBuilder: (context, index) {
-                                                                      return Obx(
-                                                                            () => GestureDetector(
-                                                                          onTap: () {
-                                                                            expUpdateController.selectedPayment.value = paymentList[index];
-                                                                          },
-                                                                          child: Container(
-                                                                            padding: EdgeInsets.all(2.w),
-                                                                            decoration: BoxDecoration(
-                                                                              color: expUpdateController.selectedPayment.value.id == paymentList[index].id ? secondaryColor : greyColor,
-                                                                              borderRadius: BorderRadius.circular(10.r),
-                                                                            ),
-                                                                            child: Center(
-                                                                              child: CustomText(
-                                                                                text: paymentList[index].name ?? "",
-                                                                                fontSize: 10.sp,
-                                                                                color: primaryColor,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                              ),
-                                                            )
-                                                          ]),
-                                                      kSizedBoxH10,
-                                                      Obx(
-                                                            () => Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                          children: [
-                                                            Container(
-                                                              width:
-                                                              100.w,
-                                                              padding: EdgeInsets
-                                                                  .all(5
-                                                                  .w),
-                                                              decoration:
-                                                              BoxDecoration(
-                                                                color:
-                                                                secondaryColor,
-                                                                borderRadius:
-                                                                BorderRadius.circular(10.r),
-                                                              ),
-                                                              child:
-                                                              Center(
-                                                                child:
-                                                                CustomText(
-                                                                  text: expUpdateController.selectedPayment.value.name ??
-                                                                      "",
-                                                                  fontSize:
-                                                                  10.sp,
-                                                                  color:
-                                                                  primaryColor,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      kSizedBoxH10,
-                                                      Container(
-                                                        padding:
-                                                        EdgeInsets
-                                                            .all(10
-                                                            .w),
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          color:
-                                                          cardColor,
-                                                          borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                              10.r),
-                                                        ),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          children: <Widget>[
-                                                            Row(
+                                                          ),
+                                                          kSizedBoxH10,
+                                                          ExpansionTile(
+                                                              backgroundColor:
+                                                                  cardColor,
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .r)),
+                                                              collapsedBackgroundColor:
+                                                                  cardColor,
+                                                              collapsedShape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(10
+                                                                              .r)),
+                                                              title: Text(
+                                                                  "Payment Method"),
                                                               children: [
-                                                                Icon(Icons
-                                                                    .calendar_month),
-                                                                Obx(
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(8
+                                                                              .w),
+                                                                  child:
+                                                                      SizedBox(
+                                                                    height:
+                                                                        100.h,
+                                                                    child: GridView.builder(
+                                                                        itemCount: paymentList.length,
+                                                                        shrinkWrap: true,
+                                                                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
+                                                                        itemBuilder: (context, index) {
+                                                                          return Obx(
+                                                                            () =>
+                                                                                GestureDetector(
+                                                                              onTap: () {
+                                                                                expUpdateController.selectedPayment.value = paymentList[index];
+                                                                              },
+                                                                              child: Container(
+                                                                                padding: EdgeInsets.all(2.w),
+                                                                                decoration: BoxDecoration(
+                                                                                  color: expUpdateController.selectedPayment.value.id == paymentList[index].id ? secondaryColor : greyColor,
+                                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                                ),
+                                                                                child: Center(
+                                                                                  child: CustomText(
+                                                                                    text: paymentList[index].name ?? "",
+                                                                                    fontSize: 10.sp,
+                                                                                    color: primaryColor,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                  ),
+                                                                )
+                                                              ]),
+                                                          kSizedBoxH10,
+                                                          Obx(
+                                                            () => Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: 100.w,
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(5
+                                                                              .w),
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color:
+                                                                        secondaryColor,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10.r),
+                                                                  ),
+                                                                  child: Center(
+                                                                    child:
+                                                                        CustomText(
+                                                                      text: expUpdateController
+                                                                              .selectedPayment
+                                                                              .value
+                                                                              .name ??
+                                                                          "",
+                                                                      fontSize:
+                                                                          10.sp,
+                                                                      color:
+                                                                          primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          kSizedBoxH10,
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    10.w),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: cardColor,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.r),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: <Widget>[
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(Icons
+                                                                        .calendar_month),
+                                                                    Obx(
                                                                       () =>
-                                                                      GestureDetector(
+                                                                          GestureDetector(
                                                                         onTap: () =>
                                                                             expUpdateController.selectDate(context),
-                                                                        child:
-                                                                        Text(expUpdateController.selectedDateStr.value),
+                                                                        child: Text(expUpdateController
+                                                                            .selectedDateStr
+                                                                            .value),
                                                                       ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Icon(Icons
-                                                                    .access_time),
-                                                                Obx(
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(Icons
+                                                                        .access_time),
+                                                                    Obx(
                                                                       () =>
-                                                                      GestureDetector(
+                                                                          GestureDetector(
                                                                         onTap: () =>
                                                                             expUpdateController.selectTime(context),
-                                                                        child:
-                                                                        Text(expUpdateController.selectedTimeStr.value),
+                                                                        child: Text(expUpdateController
+                                                                            .selectedTimeStr
+                                                                            .value),
                                                                       ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                          kSizedBoxH30,
+                                                          Align(
+                                                            alignment: Alignment
+                                                                .bottomCenter,
+                                                            child:
+                                                                ElevatedButton(
+                                                              onPressed: () {
+                                                                expUpdateController.updateExpenditure(
+                                                                    docId: homeController
+                                                                            .expGroupList[index]
+                                                                            .expList?[index1]
+                                                                            .docId ??
+                                                                        '');
+                                                              },
+                                                              child: CustomText(
+                                                                  text: 'update'
+                                                                      .tr),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      kSizedBoxH30,
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .bottomCenter,
-                                                        child:
-                                                        ElevatedButton(
-                                                          onPressed:
-                                                              () {
-                                                            expUpdateController
-                                                                .updateExpenditure(
-                                                                docId:
-                                                                Global.docIdList[index]);
-                                                          },
-                                                          child: const Text(
-                                                              'Update'),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
+                                                );
+                                              },
                                             );
                                           },
-                                        );
-                                      },
-                                      child: CustomCard(
-                                        widget: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceBetween,
-                                          children: [
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment
-                                                  .start,
+                                          child: CustomCard(
+                                            widget: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Row(
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(Icons.category,
-                                                        size: 15.w),
-                                                    kSizedBoxW10,
-                                                    CustomText(
-                                                      fontSize: 10.sp,
-                                                      text: homeController
-                                                          .searchList
-                                                          .isNotEmpty
-                                                          ? homeController
-                                                          .searchList[
-                                                      index]
-                                                          .category
-                                                          ?.name ??
-                                                          ''
-                                                          : homeController
-                                                          .expList[
-                                                      index]
-                                                          .category
-                                                          ?.name ??
-                                                          "",
+                                                    Row(
+                                                      children: [
+                                                        Icon(Icons.category,
+                                                            size: 15.w),
+                                                        kSizedBoxW10,
+                                                        CustomText(
+                                                          fontSize: 10.sp,
+                                                          text: homeController
+                                                                  .searchList
+                                                                  .isNotEmpty
+                                                              ? homeController
+                                                                      .searchList[
+                                                                          index]
+                                                                      .category
+                                                                      ?.name ??
+                                                                  ''
+                                                              : homeController
+                                                                      .expGroupList[
+                                                                          index]
+                                                                      .expList?[
+                                                                          index]
+                                                                      .expm
+                                                                      ?.category
+                                                                      ?.name ??
+                                                                  "",
+                                                        ),
+                                                        kSizedBoxW10,
+                                                        Icon(
+                                                          Icons.wallet,
+                                                          size: 15.w,
+                                                        ),
+                                                        kSizedBoxW10,
+                                                        CustomText(
+                                                          fontSize: 10.sp,
+                                                          text: homeController
+                                                                  .searchList
+                                                                  .isNotEmpty
+                                                              ? homeController
+                                                                      .searchList[
+                                                                          index]
+                                                                      .payment
+                                                                      ?.name ??
+                                                                  ''
+                                                              : homeController
+                                                                      .expGroupList[
+                                                                          index]
+                                                                      .expList?[
+                                                                          index]
+                                                                      .expm
+                                                                      ?.payment
+                                                                      ?.name ??
+                                                                  "",
+                                                        ),
+                                                      ],
                                                     ),
-                                                    kSizedBoxW10,
-                                                    Icon(
-                                                      Icons.wallet,
-                                                      size: 15.w,
-                                                    ),
-                                                    kSizedBoxW10,
-                                                    CustomText(
-                                                      fontSize: 10.sp,
-                                                      text: homeController
-                                                          .searchList
-                                                          .isNotEmpty
-                                                          ? homeController
-                                                          .searchList[
-                                                      index]
-                                                          .payment
-                                                          ?.name ??
-                                                          ''
-                                                          : homeController
-                                                          .expList[
-                                                      index]
-                                                          .payment
-                                                          ?.name ??
-                                                          "",
-                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                            Icons
+                                                                .calendar_month,
+                                                            size: 15.w),
+                                                        kSizedBoxW10,
+                                                        CustomText(
+                                                          fontSize: 8.sp,
+                                                          text: (homeController
+                                                                      .searchList
+                                                                      .isNotEmpty
+                                                                  ? homeController
+                                                                          .searchList[
+                                                                              index]
+                                                                          .updatedDate ??
+                                                                      ''
+                                                                  : homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index]
+                                                                          .expm
+                                                                          ?.updatedDate ??
+                                                                      "")
+                                                              .split(' ')
+                                                              .elementAt(0),
+                                                        ),
+                                                        kSizedBoxW10,
+                                                        Icon(
+                                                          Icons
+                                                              .watch_later_outlined,
+                                                          size: 15.w,
+                                                        ),
+                                                        kSizedBoxW10,
+                                                        CustomText(
+                                                          fontSize: 8.sp,
+                                                          text: (homeController
+                                                                      .searchList
+                                                                      .isNotEmpty
+                                                                  ? homeController
+                                                                          .searchList[
+                                                                              index]
+                                                                          .updatedDate ??
+                                                                      ''
+                                                                  : homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index]
+                                                                          .expm
+                                                                          ?.updatedDate ??
+                                                                      "")
+                                                              .split(' ')
+                                                              .elementAt(1),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ],
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                        Icons
-                                                            .calendar_month,
-                                                        size: 15.w),
-                                                    kSizedBoxW10,
-                                                    CustomText(
-                                                      fontSize: 8.sp,
-                                                      text: (homeController
-                                                          .searchList
-                                                          .isNotEmpty
-                                                          ? homeController
-                                                          .searchList[
-                                                      index]
-                                                          .updatedDate ??
-                                                          ''
-                                                          : homeController
-                                                          .expList[index]
-                                                          .updatedDate ??
-                                                          "")
-                                                          .split(' ')
-                                                          .elementAt(0),
-                                                    ),
-                                                    kSizedBoxW10,
-                                                    Icon(
-                                                      Icons
-                                                          .watch_later_outlined,
-                                                      size: 15.w,
-                                                    ),
-                                                    kSizedBoxW10,
-                                                    CustomText(
-                                                      fontSize: 8.sp,
-                                                      text: (homeController
-                                                          .searchList
-                                                          .isNotEmpty
-                                                          ? homeController
-                                                          .searchList[
-                                                      index]
-                                                          .updatedDate ??
-                                                          ''
-                                                          : homeController
-                                                          .expList[index]
-                                                          .updatedDate ??
-                                                          "")
-                                                          .split(' ')
-                                                          .elementAt(1),
-                                                    ),
-                                                  ],
-                                                )
+                                                CustomText(
+                                                  text: homeController
+                                                          .searchList.isNotEmpty
+                                                      ? "${homeController.searchList[index].amount ?? ''}"
+                                                      : "${homeController.expGroupList[index].expList?[index].expm?.amount ?? ''}",
+                                                ),
                                               ],
                                             ),
-                                            CustomText(
-                                              text: homeController
-                                                  .searchList
-                                                  .isNotEmpty
-                                                  ? "${homeController.searchList[index].amount ?? ''}"
-                                                  : "${homeController.expList[index].amount ?? ''}",
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                );
-                              }),
-                        ))
-                      ],
-                    );
-                  }).toList(),
-                ),
+                                          )),
+                                    );
+                                  }),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
               ),
               kSizedBoxH10,
             ],
