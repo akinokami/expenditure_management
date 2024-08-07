@@ -17,6 +17,8 @@ class HomeController extends GetxController {
   List<Expenditure> expList = <Expenditure>[].obs;
   List<ExpmGroup> expGroupList = <ExpmGroup>[].obs;
   List<ExpenditureModel> searchList = <ExpenditureModel>[].obs;
+  List<ExpenditureModel> pieIncomeList = <ExpenditureModel>[].obs;
+  List<ExpenditureModel> pieExpenseList = <ExpenditureModel>[].obs;
   Map<DateTime, List<ExpenditureModel>> grouped = {};
   @override
   void onInit() {
@@ -33,6 +35,13 @@ class HomeController extends GetxController {
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
       print(expList);
+      for (var i = 0; i < expList.length; i++) {
+        if (expList[i].expm?.type?.id == 1) {
+          pieExpenseList.add(expList[i].expm!);
+        } else {
+          pieIncomeList.add(expList[i].expm!);
+        }
+      }
       var groupedItems = groupBy(expList, (Expenditure item) => item.month);
       groupedItems.forEach((key, value) {
         expGroupList.add(ExpmGroup(month: key, expList: value));
