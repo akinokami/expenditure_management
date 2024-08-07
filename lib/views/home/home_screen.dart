@@ -703,7 +703,7 @@ class HomeScreen extends StatelessWidget {
                                                                       .expGroupList[
                                                                           index]
                                                                       .expList?[
-                                                                          index]
+                                                                          index1]
                                                                       .expm
                                                                       ?.category
                                                                       ?.name ??
@@ -730,7 +730,7 @@ class HomeScreen extends StatelessWidget {
                                                                       .expGroupList[
                                                                           index]
                                                                       .expList?[
-                                                                          index]
+                                                                          index1]
                                                                       .expm
                                                                       ?.payment
                                                                       ?.name ??
@@ -759,7 +759,7 @@ class HomeScreen extends StatelessWidget {
                                                                           .expGroupList[
                                                                               index]
                                                                           .expList?[
-                                                                              index]
+                                                                              index1]
                                                                           .expm
                                                                           ?.updatedDate ??
                                                                       "")
@@ -787,7 +787,7 @@ class HomeScreen extends StatelessWidget {
                                                                           .expGroupList[
                                                                               index]
                                                                           .expList?[
-                                                                              index]
+                                                                              index1]
                                                                           .expm
                                                                           ?.updatedDate ??
                                                                       "")
@@ -802,7 +802,7 @@ class HomeScreen extends StatelessWidget {
                                                   text: homeController
                                                           .searchList.isNotEmpty
                                                       ? "${homeController.searchList[index].amount ?? ''}"
-                                                      : "${homeController.expGroupList[index].expList?[index].expm?.amount ?? ''}",
+                                                      : "${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}",
                                                 ),
                                               ],
                                             ),
