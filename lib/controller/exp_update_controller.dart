@@ -1,4 +1,5 @@
 import 'package:expenditure_management/constants/color_const.dart';
+import 'package:expenditure_management/controller/calendar_controller.dart';
 import 'package:expenditure_management/controller/home_controller.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:expenditure_management/services/firestore_service.dart';
@@ -138,6 +139,7 @@ class ExpUpdateController extends GetxController {
             updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}",
           ));
       Get.find<HomeController>().getExpenditures();
+      Get.find<CalendarController>().getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_updated'.tr,
@@ -156,6 +158,7 @@ class ExpUpdateController extends GetxController {
     try {
       firestoreService.deleteExpenditure(docId);
       Get.find<HomeController>().getExpenditures();
+      Get.find<CalendarController>().getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_deleted'.tr,

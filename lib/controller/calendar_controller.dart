@@ -1,17 +1,39 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/expenditure.dart';
+import '../services/firestore_service.dart';
+import '../utils/constants.dart';
 
 class CalendarController extends GetxController {
   final totalExpense = 0.obs;
   final totalIncome = 0.obs;
 
   final isExpense = true.obs;
+  RxList<Expenditure> expList = <Expenditure>[].obs;
+
+  final firestoreService = FireStoreService();
+  final isLoading = false.obs;
 
   @override
   void onInit() {
-    // TODO: implement onInit
+    getExpenditures();
     super.onInit();
+  }
+
+  void getExpenditures() async {
+    isLoading.value = true;
+    try {
+      expList.clear();
+      List<Map<String, dynamic>> result =
+          await firestoreService.getExpenditures();
+      expList.addAll(result.map((e) => Expenditure.fromJson(e)).toList());
+    } catch (e) {
+      constants.showSnackBar(
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   void changeExpense() {

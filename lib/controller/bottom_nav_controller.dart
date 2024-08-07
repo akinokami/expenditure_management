@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:expenditure_management/constants/color_const.dart';
+import 'package:expenditure_management/controller/calendar_controller.dart';
 import 'package:expenditure_management/controller/home_controller.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:expenditure_management/services/category_data.dart';
@@ -118,6 +119,7 @@ class BottomNavController extends GetxController {
         updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}",
       ));
       Get.find<HomeController>().getExpenditures();
+      Get.find<CalendarController>().getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_created'.tr,
