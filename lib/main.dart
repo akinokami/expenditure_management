@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           locale: Global.language == 'vi'
               ? const Locale('vi', 'VN')
               : const Locale('en', 'US'),
-          fallbackLocale: const Locale('en', 'US'),
+          fallbackLocale: const Locale('vi', 'VN'),
           home: const SplashScreen(),
         );
       },

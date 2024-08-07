@@ -1,5 +1,6 @@
 import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
+import 'package:expenditure_management/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,7 +52,176 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //width: MediaQuery.of(context).size.width * 0.90,
                                 child: InAppWebView(
                                   // Initial URL request for the web view.
-                                  initialData: InAppWebViewInitialData(data: """
+                                  initialData:Global.language=="vi"?
+                                  InAppWebViewInitialData(data: """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flutter InAppWebView</title>
+</head>
+<body>
+
+<h3>Chính sách bảo mật</h3>
+<div class="tyJCtd mGzaTb Depvyb baZpAe">
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+        <span class="C9DxTc " style="">Trang này được sử dụng để thông báo cho khách truy cập về các chính sách của tôi về việc thu thập, sử dụng và tiết lộ Thông tin cá nhân nếu có ai quyết định sử dụng Dịch vụ của tôi. Nếu bạn chọn sử dụng Dịch vụ của tôi thì bạn đồng ý với việc thu thập và sử dụng thông tin liên quan đến chính sách này. Thông tin cá nhân mà tôi thu thập được sử dụng để cung cấp và cải thiện Dịch vụ. Tôi sẽ không sử dụng hoặc chia sẻ thông tin của bạn với bất kỳ ai ngoại trừ những trường hợp được mô tả trong Chính sách quyền riêng tư này.</span>
+    </p>
+
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+<span class="C9DxTc " style="">Các điều khoản được sử dụng trong Chính sách quyền riêng tư này có cùng ý nghĩa như trong Điều khoản và Điều kiện của chúng tôi, có thể truy cập được tại MKSports Live trừ khi được quy định khác trong Chính sách quyền riêng tư này.
+Thu thập và sử dụng thông tin Để có trải nghiệm tốt hơn, khi sử dụng Dịch vụ của chúng tôi, tôi có thể yêu cầu bạn cung cấp cho chúng tôi một số thông tin nhận dạng cá nhân nhất định. Thông tin mà tôi yêu cầu sẽ được lưu giữ trên thiết bị của bạn và không được tôi thu thập dưới bất kỳ hình thức nào.
+Ứng dụng sử dụng các dịch vụ của bên thứ ba có thể thu thập thông tin dùng để nhận dạng bạn.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+        <span class="C9DxTc " style="">Liên kết đến chính sách quyền riêng tư của nhà cung cấp dịch vụ bên thứ ba được ứng dụng sử dụng</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Dịch vụ của Google Play</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Facebook</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span><span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Điều chỉnh</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Dữ liệu nhật ký</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Tôi muốn thông báo cho bạn rằng bất cứ khi nào bạn sử dụng Dịch vụ của tôi, trong trường hợp xảy ra lỗi trong ứng dụng, tôi sẽ thu thập dữ liệu và thông tin (thông qua các sản phẩm của bên thứ ba) trên điện thoại của bạn có tên là Dữ liệu nhật ký. Dữ liệu nhật ký này có thể bao gồm thông tin như địa chỉ Giao thức Internet (“IP”) của thiết bị, tên thiết bị, phiên bản hệ điều hành, cấu hình của ứng dụng khi sử dụng Dịch vụ của tôi, ngày và giờ bạn sử dụng Dịch vụ và các số liệu thống kê khác .</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Cookies</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Cookie là các tệp có một lượng nhỏ dữ liệu thường được sử dụng làm mã định danh duy nhất ẩn danh. Chúng được gửi tới trình duyệt của bạn từ các trang web bạn truy cập và được lưu trữ trên bộ nhớ trong của thiết bị.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Dịch vụ này không sử dụng các “cookie” này một cách rõ ràng. Tuy nhiên, ứng dụng có thể sử dụng mã và thư viện của bên thứ ba sử dụng “cookie” để thu thập thông tin và cải thiện dịch vụ của họ. Bạn có tùy chọn chấp nhận hoặc từ chối các cookie này và biết khi nào cookie được gửi đến thiết bị của bạn. Nếu bạn chọn từ chối cookie của chúng tôi, bạn có thể không sử dụng được một số phần của Dịch vụ này.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Các nhà cung cấp dịch vụ</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Tôi có thể tuyển dụng các công ty và cá nhân bên thứ ba vì những lý do sau:</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Để tạo điều kiện thuận lợi cho Dịch vụ của chúng tôi;</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Để cung cấp Dịch vụ thay mặt chúng tôi;</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Để thực hiện các dịch vụ liên quan đến Dịch vụ; hoặc</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">•</span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">
+    <span class="Apple-tab-span " style="white-space: pre;"> </span>
+    </span>
+    <span class="C9DxTc " style="">Để hỗ trợ chúng tôi phân tích cách Dịch vụ của chúng tôi được sử dụng.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Tôi muốn thông báo cho người dùng Dịch vụ này rằng các bên thứ ba này có quyền truy cập vào Thông tin cá nhân của họ. Lý do là để thay mặt chúng tôi thực hiện nhiệm vụ được giao. Tuy nhiên, họ có nghĩa vụ không tiết lộ hoặc sử dụng thông tin cho bất kỳ mục đích nào khác.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Bảo vệ</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Tôi đánh giá cao sự tin tưởng của bạn trong việc cung cấp cho chúng tôi Thông tin cá nhân của bạn, do đó chúng tôi đang cố gắng sử dụng các phương tiện được chấp nhận về mặt thương mại để bảo vệ thông tin đó. Nhưng hãy nhớ rằng không có phương thức truyền qua internet hoặc phương pháp lưu trữ điện tử nào an toàn và đáng tin cậy 100% và tôi không thể đảm bảo tính bảo mật tuyệt đối của nó.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Liên kết đến các trang web khác</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Dịch vụ này có thể chứa các liên kết đến các trang web khác. Nếu bạn nhấp vào liên kết của bên thứ ba, bạn sẽ được dẫn đến trang web đó. Lưu ý rằng những trang web bên ngoài này không phải do tôi điều hành. Vì vậy, tôi thực sự khuyên bạn nên xem lại Chính sách quyền riêng tư của các trang web này. Tôi không có quyền kiểm soát và không chịu trách nhiệm về nội dung, chính sách bảo mật hoặc thông lệ của bất kỳ trang web hoặc dịch vụ bên thứ ba nào.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Quyền riêng tư của trẻ em</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Các Dịch vụ này không đề cập đến bất kỳ ai dưới 18 tuổi. Tôi không cố ý thu thập thông tin nhận dạng cá nhân từ trẻ em dưới 18 tuổi. Trong trường hợp tôi phát hiện ra rằng một đứa trẻ dưới 18 tuổi đã cung cấp thông tin cá nhân cho tôi, tôi sẽ xóa ngay thông tin này khỏi máy chủ của chúng tôi. Nếu bạn là cha mẹ hoặc người giám hộ và bạn biết rằng con bạn đã cung cấp thông tin cá nhân cho chúng tôi, vui lòng liên hệ với tôi để tôi có thể thực hiện các hành động cần thiết.</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Những thay đổi đối với Chính sách quyền riêng tư này</span>
+    </p>
+    <p dir="ltr" class="zfr3Q CDt4Ke " style="">
+    <span class="C9DxTc " style="">Thỉnh thoảng tôi có thể cập nhật Chính sách quyền riêng tư của chúng tôi. Vì vậy, bạn nên xem lại trang này định kỳ để biết bất kỳ thay đổi nào. Tôi sẽ thông báo cho bạn về bất kỳ thay đổi nào bằng cách đăng Chính sách quyền riêng tư mới trên trang này.</span></p>
+    </div>
+
+
+</body>
+</html>
+"""):
+                                  InAppWebViewInitialData(data: """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,7 +294,7 @@ The app does use third-party services that may collect information used to ident
                                     });
                                   },
                                 ),
-                                Text('I agreed to the Privacy Policy.',
+                                Text('agree'.tr,
                                     style: TextStyle(
                                       fontSize: 12,
                                     ))
@@ -142,7 +312,7 @@ The app does use third-party services that may collect information used to ident
                                   fontSize: 14,
                                   color: Colors.white,
                                 ),
-                                'Accept',
+                                'accept'.tr,
                               ),
                               onPressed: isAccepted
                                   ? () async {
