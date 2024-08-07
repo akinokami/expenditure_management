@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
+ SizedBox kSizedBoxH2 = SizedBox(height: 2.h);
  SizedBox kSizedBoxH5 = SizedBox(height: 5.h);
  SizedBox kSizedBoxH10 = SizedBox(height: 10.h);
  SizedBox kSizedBoxH15 = SizedBox(height: 15.h);
