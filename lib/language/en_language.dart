@@ -43,7 +43,7 @@ class EnLanguage {
     'asists': 'Asists',
     'founded_in': 'Founded in :',
     'location': 'Location :',
-    'home': 'Home :',
+    'home': 'Home',
     'contact_information': 'Contact Information',
     'tel': 'Tel :',
     'email': 'Email :',
