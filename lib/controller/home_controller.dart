@@ -13,10 +13,9 @@ class HomeController extends GetxController {
   final searchTxtController = TextEditingController();
   final isLoading = false.obs;
   final firestoreService = FireStoreService();
-  // List<ExpenditureModel> expList = <ExpenditureModel>[].obs;
   List<Expenditure> expList = <Expenditure>[].obs;
   List<ExpmGroup> expGroupList = <ExpmGroup>[].obs;
-  List<ExpenditureModel> searchList = <ExpenditureModel>[].obs;
+  List<ExpmGroup> expFilterList = <ExpmGroup>[].obs;
   List<ExpenditureModel> pieIncomeList = <ExpenditureModel>[].obs;
   List<ExpenditureModel> pieExpenseList = <ExpenditureModel>[].obs;
   Map<DateTime, List<ExpenditureModel>> grouped = {};
@@ -33,10 +32,11 @@ class HomeController extends GetxController {
       expGroupList.clear();
       pieIncomeList.clear();
       pieExpenseList.clear();
+      expFilterList.clear();
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
-      print(expList);
+
       for (var i = 0; i < expList.length; i++) {
         if (expList[i].expm?.type?.id == 1) {
           pieExpenseList.add(expList[i].expm!);
@@ -48,36 +48,45 @@ class HomeController extends GetxController {
       groupedItems.forEach((key, value) {
         expGroupList.add(ExpmGroup(month: key, expList: value));
       });
+      expFilterList = expGroupList;
     } catch (e) {
       constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: Colors.red);
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     } finally {
       isLoading(false);
     }
   }
 
-  // void searchExpenditures() async {
-  //   isLoading(true);
-  //   try {
-  //     Global.docIdList.clear();
-  //     List<Map<String, dynamic>> result =
-  //         await firestoreService.getExpenditures();
-  //     print(result);
-  //     expList
-  //         .assignAll(result.map((e) => ExpenditureModel.fromJson(e)).toList());
-  //     searchList.addAll(expList
-  //         .where((element) => ((element.category?.name ?? "")
-  //                 .toLowerCase()
-  //                 .contains(searchTxtController.text.toLowerCase()) ||
-  //             (element.payment?.name ?? "")
-  //                 .toLowerCase()
-  //                 .contains(searchTxtController.text.toLowerCase())))
-  //         .toList());
-  //   } catch (e) {
-  //     constants.showSnackBar(
-  //         title: 'Error', msg: e.toString(), textColor: Colors.red);
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
+  void searchExpenditures() async {
+    isLoading.value = true;
+    expFilterList.clear();
+    List<Expenditure> eList = Global.language == 'vi'
+        ? expList
+            .where((element) =>
+                (element.expm?.category?.nameVn ?? '')
+                    .toLowerCase()
+                    .contains(searchTxtController.text.toLowerCase()) ||
+                (element.expm?.payment?.nameVn ?? '')
+                    .toLowerCase()
+                    .contains(searchTxtController.text.toLowerCase()) ||
+                (element.expm?.amount.toString() ?? '')
+                    .contains(searchTxtController.text))
+            .toList()
+        : expList
+            .where((element) =>
+                (element.expm?.category?.name ?? '')
+                    .toLowerCase()
+                    .contains(searchTxtController.text.toLowerCase()) ||
+                (element.expm?.payment?.name ?? '')
+                    .toLowerCase()
+                    .contains(searchTxtController.text.toLowerCase()) ||
+                (element.expm?.amount.toString() ?? '')
+                    .contains(searchTxtController.text))
+            .toList();
+    var groupedItems = groupBy(eList, (Expenditure item) => item.month);
+    groupedItems.forEach((key, value) {
+      expFilterList.add(ExpmGroup(month: key, expList: value));
+    });
+    isLoading.value = false;
+  }
 }

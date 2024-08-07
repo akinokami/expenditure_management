@@ -24,7 +24,7 @@ class BottomNavController extends GetxController {
   final firestoreService = FireStoreService();
   final noteTxtController = TextEditingController();
   final amountTxtController = TextEditingController();
-late Timer timer;
+  late Timer timer;
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -55,14 +55,12 @@ late Timer timer;
 
   @override
   void onInit() {
-    timer=Timer.periodic(const Duration(seconds: 1), (timer) {
-      selectedDate=DateTime.now();
-      selectedTime=TimeOfDay.now();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      selectedDate = DateTime.now();
+      selectedTime = TimeOfDay.now();
       formatDate();
       formatTime();
     });
-
-
 
     super.onInit();
   }
@@ -121,13 +119,13 @@ late Timer timer;
       ));
       Get.find<HomeController>().getExpenditures();
       constants.showSnackBar(
-          title: 'Success',
-          msg: "Data intserted successfully.",
+          title: 'success'.tr,
+          msg: 'data_created'.tr,
           textColor: secondaryColor);
       clearData();
     } catch (e) {
       constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: Colors.red);
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     } finally {
       isLoading(false);
     }

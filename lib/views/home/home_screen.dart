@@ -30,32 +30,13 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: CustomTextField(
-                    hintText: 'search'.tr,
-                    onChanged: (va) {
-                      homeController.searchList.clear();
-                      //homeController.searchExpenditures();
-                    },
-                    controller: homeController.searchTxtController,
-                    fillColor: cardColor,
-                  )),
-                  kSizedBoxW10,
-                  Container(
-                    width: 50.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                        color: cardColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Icon(
-                      Icons.filter_alt_outlined,
-                      color: secondaryColor,
-                      size: 30.w,
-                    ),
-                  )
-                ],
+              CustomTextField(
+                hintText: 'search'.tr,
+                onChanged: (value) {
+                  homeController.searchExpenditures();
+                },
+                controller: homeController.searchTxtController,
+                fillColor: cardColor,
               ),
               kSizedBoxH10,
               Obx(
@@ -65,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         ),
                       )
-                    : homeController.expGroupList.isEmpty
+                    : homeController.expFilterList.isEmpty
                         ? Expanded(
                             child: Center(
                               child: CustomText(text: 'no_data_found'.tr),
@@ -74,32 +55,32 @@ class HomeScreen extends StatelessWidget {
                         : Expanded(
                             child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: homeController.expGroupList.length,
+                              itemCount: homeController.expFilterList.length,
                               itemBuilder: (context, index) {
                                 int total = 0;
                                 if ((homeController
-                                            .expGroupList[index].expList ??
+                                            .expFilterList[index].expList ??
                                         [])
                                     .isNotEmpty) {
                                   for (int i = 0;
                                       i <
-                                          (homeController.expGroupList[index]
+                                          (homeController.expFilterList[index]
                                                       .expList ??
                                                   [])
                                               .length;
                                       i++) {
-                                    if (homeController.expGroupList[index]
+                                    if (homeController.expFilterList[index]
                                             .expList?[i].expm?.type?.id ==
                                         1) {
                                       total -= (homeController
-                                              .expGroupList[index]
+                                              .expFilterList[index]
                                               .expList?[i]
                                               .expm
                                               ?.amount ??
                                           0);
                                     } else {
                                       total += (homeController
-                                              .expGroupList[index]
+                                              .expFilterList[index]
                                               .expList?[i]
                                               .expm
                                               ?.amount ??
@@ -126,14 +107,15 @@ class HomeScreen extends StatelessWidget {
                                         children: [
                                           CustomText(
                                               text: homeController
-                                                      .expGroupList[index]
+                                                      .expFilterList[index]
                                                       .month ??
                                                   '',
                                               color: primaryColor),
                                           Row(
                                             children: [
                                               CustomText(
-                                                text: "${total.toString()} ${Global().currencySymbol}",
+                                                text:
+                                                    "${total.toString()} ${Global().currencySymbol}",
                                                 color: primaryColor,
                                               ),
                                               kSizedBoxW10,
@@ -150,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                                     ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: homeController
-                                          .expGroupList[index].expList?.length,
+                                          .expFilterList[index].expList?.length,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       itemBuilder: ((context, index1) {
@@ -164,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                                                   expUpdateController
                                                       .deleteExpenditure(
                                                           docId: homeController
-                                                                  .expGroupList[
+                                                                  .expFilterList[
                                                                       index]
                                                                   .expList?[
                                                                       index1]
@@ -184,7 +166,7 @@ class HomeScreen extends StatelessWidget {
                                                     .updateInitial(
                                                         expenditureModel:
                                                             homeController
-                                                                .expGroupList[
+                                                                .expFilterList[
                                                                     index]
                                                                 .expList?[
                                                                     index1]
@@ -699,7 +681,7 @@ class HomeScreen extends StatelessWidget {
                                                                               .amountTxtController
                                                                               .text
                                                                               .isNotEmpty) {
-                                                                            expUpdateController.updateExpenditure(docId: homeController.expGroupList[index].expList?[index1].docId ?? '');
+                                                                            expUpdateController.updateExpenditure(docId: homeController.expFilterList[index].expList?[index1].docId ?? '');
                                                                           } else {
                                                                             constants.showSnackBar(
                                                                                 title: 'error'.tr,
@@ -737,7 +719,7 @@ class HomeScreen extends StatelessWidget {
                                                               text: Global.language ==
                                                                       'vi'
                                                                   ? (homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index]
@@ -746,7 +728,7 @@ class HomeScreen extends StatelessWidget {
                                                                           ?.nameVn ??
                                                                       "")
                                                                   : homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index1]
@@ -766,7 +748,7 @@ class HomeScreen extends StatelessWidget {
                                                               text: Global.language ==
                                                                       'vi'
                                                                   ? (homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index1]
@@ -775,7 +757,7 @@ class HomeScreen extends StatelessWidget {
                                                                           ?.nameVn ??
                                                                       "")
                                                                   : homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index1]
@@ -796,7 +778,7 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 8.sp,
                                                               text: (homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index1]
@@ -816,7 +798,7 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 8.sp,
                                                               text: (homeController
-                                                                          .expGroupList[
+                                                                          .expFilterList[
                                                                               index]
                                                                           .expList?[
                                                                               index1]
@@ -831,7 +813,7 @@ class HomeScreen extends StatelessWidget {
                                                         kSizedBoxH2,
                                                         Visibility(
                                                           visible: homeController
-                                                                  .expGroupList[
+                                                                  .expFilterList[
                                                                       index]
                                                                   .expList?[
                                                                       index1]
@@ -847,7 +829,7 @@ class HomeScreen extends StatelessWidget {
                                                               kSizedBoxW10,
                                                               CustomText(
                                                                 text: homeController
-                                                                        .expGroupList[
+                                                                        .expFilterList[
                                                                             index]
                                                                         .expList?[
                                                                             index1]
@@ -863,7 +845,7 @@ class HomeScreen extends StatelessWidget {
                                                     ),
                                                     CustomText(
                                                       text: homeController
-                                                                  .expGroupList[
+                                                                  .expFilterList[
                                                                       index]
                                                                   .expList?[
                                                                       index1]
@@ -871,10 +853,10 @@ class HomeScreen extends StatelessWidget {
                                                                   ?.type
                                                                   ?.id ==
                                                               1
-                                                          ? "- ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}"
-                                                          : "+ ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}",
+                                                          ? "- ${homeController.expFilterList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}"
+                                                          : "+ ${homeController.expFilterList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}",
                                                       color: homeController
-                                                                  .expGroupList[
+                                                                  .expFilterList[
                                                                       index]
                                                                   .expList?[
                                                                       index1]
