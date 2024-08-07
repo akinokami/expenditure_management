@@ -437,7 +437,7 @@ class HomeScreen extends StatelessWidget {
                                                                       child:
                                                                           SizedBox(
                                                                         height:
-                                                                            260.h,
+                                                                            280.h,
                                                                         child: GridView.builder(
                                                                             physics: const NeverScrollableScrollPhysics(),
                                                                             itemCount: categoryList.length,

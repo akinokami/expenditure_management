@@ -145,104 +145,108 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                 ),
               ],
             ),
-            AspectRatio(
-              aspectRatio: 1.2,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 1.3,
-                      child: PieChart(
-                        PieChartData(
-                          // pieTouchData: PieTouchData(
-                          //   touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                          //     setState(() {
-                          //       if (!event.isInterestedForInteractions ||
-                          //           pieTouchResponse == null ||
-                          //           pieTouchResponse.touchedSection == null) {
-                          //         touchedIndex = -1;
-                          //         return;
-                          //       }
-                          //       touchedIndex = pieTouchResponse
-                          //           .touchedSection!.touchedSectionIndex;
-                          //     });
-                          //   },
-                          // ),
-                          borderData: FlBorderData(
-                            show: false,
+            LayoutBuilder(
+              builder: (context,constraints){
+                double radiusChart=constraints.maxWidth*.04;
+                return AspectRatio(
+                aspectRatio: 1.2,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 1.3,
+                        child: PieChart(
+                          PieChartData(
+                            // pieTouchData: PieTouchData(
+                            //   touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                            //     setState(() {
+                            //       if (!event.isInterestedForInteractions ||
+                            //           pieTouchResponse == null ||
+                            //           pieTouchResponse.touchedSection == null) {
+                            //         touchedIndex = -1;
+                            //         return;
+                            //       }
+                            //       touchedIndex = pieTouchResponse
+                            //           .touchedSection!.touchedSectionIndex;
+                            //     });
+                            //   },
+                            // ),
+                            borderData: FlBorderData(
+                              show: false,
+                            ),
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 4,
+                            sections: showingSections(isExpense,radiusChart),
                           ),
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 4,
-                          sections: showingSections(isExpense),
                         ),
                       ),
                     ),
-                  ),
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * .3,
-                      width: 120.w,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: expL.length,
-                        itemBuilder: (context, i) {
-                          var category = expL[i].category;
-                          if (category == null ||
-                              displayedCategoryIds.contains(category.id)) {
-                            return Container(); // Skip rendering if category is null or already displayed
-                          }
-                          displayedCategoryIds.add(category.id ?? 0);
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .3,
+                        width: 120.w,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: expL.length,
+                          itemBuilder: (context, i) {
+                            var category = expL[i].category;
+                            if (category == null ||
+                                displayedCategoryIds.contains(category.id)) {
+                              return Container(); // Skip rendering if category is null or already displayed
+                            }
+                            displayedCategoryIds.add(category.id ?? 0);
 
-                          var sectionColor = getCategoryColor(category.id ?? 0);
-                          var categoryName = category.name;
+                            var sectionColor = getCategoryColor(category.id ?? 0);
+                            var categoryName = category.name;
 
-                          // Calculate the total amount and the percentage for each category
-                          final totalAmount = expL.fold(
-                              0.0,
-                              (sum, item) =>
-                                  sum + (item.amount?.toDouble() ?? 0));
-                          final categoryAmount = expL
-                              .where((item) => item.category?.id == category.id)
-                              .fold(
-                                  0.0,
-                                  (sum, item) =>
-                                      sum + (item.amount?.toDouble() ?? 0));
-                          final percentage =
-                              (categoryAmount / totalAmount) * 100;
+                            // Calculate the total amount and the percentage for each category
+                            final totalAmount = expL.fold(
+                                0.0,
+                                (sum, item) =>
+                                    sum + (item.amount?.toDouble() ?? 0));
+                            final categoryAmount = expL
+                                .where((item) => item.category?.id == category.id)
+                                .fold(
+                                    0.0,
+                                    (sum, item) =>
+                                        sum + (item.amount?.toDouble() ?? 0));
+                            final percentage =
+                                (categoryAmount / totalAmount) * 100;
 
-                          return Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.h),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    color: sectionColor,
-                                    shape: BoxShape.circle,
+                            return Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2.h),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      color: sectionColor,
+                                      shape: BoxShape.circle,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                    width: 2
-                                        .w), // Add some spacing between circle and text
-                                CustomText(
-                                    text:
-                                        '${categoryName ?? ""} (${percentage.toStringAsFixed(1)}%)',
-                                    fontSize: 8.sp),
-                              ],
-                            ),
-                          );
-                        },
+                                  SizedBox(
+                                      width: 2
+                                          .w), // Add some spacing between circle and text
+                                  CustomText(
+                                      text:
+                                          '${categoryName ?? ""} (${percentage.toStringAsFixed(1)}%)',
+                                      fontSize: 8.sp),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 28,
-                  ),
-                ],
-              ),
+                    const SizedBox(
+                      width: 28,
+                    ),
+                  ],
+                ),
+              );},
             ),
             (expL.isEmpty)?
             Center(child: CustomText(text: "no_data_found".tr,),):
@@ -329,7 +333,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
     );
   }
 
-  List<PieChartSectionData> showingSections(bool isExpense) {
+  List<PieChartSectionData> showingSections(bool isExpense,double radius) {
     var exp;
     if (isExpense) {
       exp = Get.find<HomeController>().pieExpenseList;
@@ -367,9 +371,9 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
         color: sectionColor,
         value: value,
         title: title,
-        radius: 100.0,
+        radius: radius *6,
         titleStyle: TextStyle(
-          fontSize: 10.0,
+          fontSize: 10.sp,
           fontWeight: FontWeight.bold,
           color: Colors.white,
           shadows: [Shadow(color: Colors.black, blurRadius: 2)],
