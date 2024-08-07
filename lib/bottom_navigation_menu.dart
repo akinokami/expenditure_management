@@ -5,6 +5,7 @@ import 'package:expenditure_management/services/category_data.dart';
 import 'package:expenditure_management/services/google_api.dart';
 import 'package:expenditure_management/services/payment_method_data.dart';
 import 'package:expenditure_management/utils/constants.dart';
+import 'package:expenditure_management/utils/global.dart';
 import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:expenditure_management/views/home/home_screen.dart';
 import 'package:expenditure_management/views/profile/profile_screen.dart';
@@ -294,9 +295,14 @@ class BottomNavigationMenu extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: CustomText(
-                                                    text: categoryList[index]
-                                                            .name ??
-                                                        "",
+                                                    text: Global.language ==
+                                                            'vi'
+                                                        ? categoryList[index]
+                                                                .nameVn ??
+                                                            ""
+                                                        : categoryList[index]
+                                                                .name ??
+                                                            "",
                                                     fontSize: 10.sp,
                                                     color: primaryColor,
                                                   ),
@@ -322,10 +328,15 @@ class BottomNavigationMenu extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: CustomText(
-                                      text: categoryList[bottomNavController
-                                                  .selectedCategory.value]
-                                              .name ??
-                                          "",
+                                      text: Global.language == 'vi'
+                                          ? categoryList[bottomNavController
+                                                      .selectedCategory.value]
+                                                  .nameVn ??
+                                              ""
+                                          : categoryList[bottomNavController
+                                                      .selectedCategory.value]
+                                                  .name ??
+                                              "",
                                       fontSize: 10.sp,
                                       color: primaryColor,
                                     ),
@@ -380,9 +391,14 @@ class BottomNavigationMenu extends StatelessWidget {
                                                 ),
                                                 child: Center(
                                                   child: CustomText(
-                                                    text: paymentList[index]
-                                                            .name ??
-                                                        "",
+                                                    text:
+                                                        Global.language == 'vi'
+                                                            ? paymentList[index]
+                                                                    .nameVn ??
+                                                                ""
+                                                            : paymentList[index]
+                                                                    .name ??
+                                                                "",
                                                     fontSize: 10.sp,
                                                     color: primaryColor,
                                                   ),
@@ -408,10 +424,15 @@ class BottomNavigationMenu extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: CustomText(
-                                      text: paymentList[bottomNavController
-                                                  .selectedPayment.value]
-                                              .name ??
-                                          "",
+                                      text: Global.language == 'vi'
+                                          ? paymentList[bottomNavController
+                                                      .selectedPayment.value]
+                                                  .nameVn ??
+                                              ""
+                                          : paymentList[bottomNavController
+                                                      .selectedPayment.value]
+                                                  .name ??
+                                              "",
                                       fontSize: 10.sp,
                                       color: primaryColor,
                                     ),

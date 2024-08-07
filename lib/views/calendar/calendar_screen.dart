@@ -66,7 +66,12 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
     final calendarComponent = Get.put(CalendarController());
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expenditures Calendar'),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: CustomText(
+          text: 'expenditure_calendar'.tr,
+          fontSize: 14.sp,
+        ),
       ),
       body: Column(
         children: [
@@ -117,8 +122,8 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
                       ),
                     ),
                     child: CustomText(
-                      text: "Expense",
-                      fontSize: 16.sp,
+                      text: 'expense'.tr,
+                      fontSize: 14.sp,
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
                       textAlign: TextAlign.center,
@@ -142,8 +147,8 @@ class _ExpenditureCalendarState extends State<ExpenditureCalendar> {
                             bottomRight: Radius.circular(10),
                           )),
                       child: CustomText(
-                        text: "Income",
-                        fontSize: 16.sp,
+                        text: 'income'.tr,
+                        fontSize: 14.sp,
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
                         textAlign: TextAlign.center,

@@ -258,29 +258,8 @@ class ProfileScreen extends StatelessWidget {
                               radius: 10,
                               onConfirm: () {
                                 profileController.deleteAllUserData(
-                                    docId: GoogleApi.user?.uid ?? '');
+                                    docId: Global.uid);
                               });
-                          // WidgetsBinding.instance
-                          //     .addPostFrameCallback((_) async {
-                          //   showAlertDialog(BuildContext context) {
-                          //     return showDialog(
-                          //       context: context,
-                          //       builder: (BuildContext context) {
-                          //         return AlertDialog(
-                          //           title: Text("My title"),
-                          //           content: Text("This is my message."),
-                          //           actions: [
-                          //             TextButton(
-                          //               child: Text("OK"),
-                          //               onPressed: () {},
-                          //             )
-                          //           ],
-                          //         );
-                          //       },
-                          //     );
-                          //   }
-                          // });
-                          //
                         },
                         leading: Icon(
                           Icons.delete_outline,
