@@ -133,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                                           Row(
                                             children: [
                                               CustomText(
-                                                text: total.toString(),
+                                                text: "${total.toString()} ${Global().currencySymbol}",
                                                 color: primaryColor,
                                               ),
                                               kSizedBoxW10,
@@ -871,8 +871,8 @@ class HomeScreen extends StatelessWidget {
                                                                   ?.type
                                                                   ?.id ==
                                                               1
-                                                          ? "- ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}"
-                                                          : "+ ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}",
+                                                          ? "- ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}"
+                                                          : "+ ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''} ${Global().currencySymbol}",
                                                       color: homeController
                                                                   .expGroupList[
                                                                       index]

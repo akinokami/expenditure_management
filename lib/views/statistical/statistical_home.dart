@@ -8,6 +8,7 @@ import '../../constants/dimen_const.dart';
 import '../../controller/home_controller.dart';
 import '../../custom_widgets/custom_card.dart';
 import '../../custom_widgets/custom_text.dart';
+import '../../utils/global.dart';
 
 class StatisticalHomeScreen extends StatefulWidget {
   const StatisticalHomeScreen({super.key});
@@ -311,8 +312,8 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                           ),
                           CustomText(
                             text: isExpense
-                                ? "- ${expL[index].amount ?? ''} \u20AB"
-                                : "+ ${expL[index].amount ?? ''} \u20AB",
+                                ? "- ${expL[index].amount ?? ''} ${Global().currencySymbol}"
+                                : "+ ${expL[index].amount ?? ''} ${Global().currencySymbol}",
                             color: isExpense ? redColor : secondaryColor,
                           ),
                         ],
