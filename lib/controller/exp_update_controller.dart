@@ -2,7 +2,6 @@ import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/controller/home_controller.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:expenditure_management/services/firestore_service.dart';
-import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -140,13 +139,13 @@ class ExpUpdateController extends GetxController {
           ));
       Get.find<HomeController>().getExpenditures();
       constants.showSnackBar(
-          title: 'Success',
-          msg: "Data updated successfully.",
+          title: 'success'.tr,
+          msg: 'data_updated'.tr,
           textColor: secondaryColor);
       //clearData();
     } catch (e) {
       constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: Colors.red);
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     } finally {
       isLoading(false);
     }
@@ -158,12 +157,12 @@ class ExpUpdateController extends GetxController {
       firestoreService.deleteExpenditure(docId);
       Get.find<HomeController>().getExpenditures();
       constants.showSnackBar(
-          title: 'Success',
-          msg: "Data deleted successfully.",
+          title: 'success'.tr,
+          msg: 'data_deleted'.tr,
           textColor: secondaryColor);
     } catch (e) {
       constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: Colors.red);
+          title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
     } finally {
       isLoading(false);
     }

@@ -2,7 +2,6 @@ import 'package:expenditure_management/firebase_options.dart';
 import 'package:expenditure_management/language/languages.dart';
 import 'package:expenditure_management/splash_screen.dart';
 import 'package:expenditure_management/utils/global.dart';
-import 'package:expenditure_management/views/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,8 +32,8 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-           // useMaterial3: true,
-          ),
+              // useMaterial3: true,
+              ),
           translations: Languages(),
           locale: Global.language == 'vi'
               ? const Locale('vi', 'VN')
