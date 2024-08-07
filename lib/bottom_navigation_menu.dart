@@ -260,7 +260,7 @@ class BottomNavigationMenu extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.all(8.w),
                                   child: SizedBox(
-                                    height: 280.h,
+                                    height: 300.h,
                                     child: GridView.builder(
                                         physics:
                                             const NeverScrollableScrollPhysics(),

@@ -522,7 +522,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                         padding:
                                                             EdgeInsets.all(8.w),
                                                         child: SizedBox(
-                                                          height: 280.h,
+                                                          height: 300.h,
                                                           child:
                                                               GridView.builder(
                                                                   physics:

@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.only(left:8.w,right: 8.w,top: 8.h),
+              padding: EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h),
               child: CustomTextField(
                 hintText: 'search'.tr,
                 onChanged: (value) {
@@ -99,8 +99,8 @@ class HomeScreen extends StatelessWidget {
                                     width: double.infinity,
                                     height: 40.h,
                                     decoration: BoxDecoration(
-                                        color: secondaryColor,
-                                       ),
+                                      color: secondaryColor,
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -118,8 +118,6 @@ class HomeScreen extends StatelessWidget {
                                                   "${total.toString()} ${Global().currencySymbol}",
                                               color: primaryColor,
                                             ),
-
-
                                           ],
                                         )
                                       ],
@@ -437,7 +435,7 @@ class HomeScreen extends StatelessWidget {
                                                                       child:
                                                                           SizedBox(
                                                                         height:
-                                                                            280.h,
+                                                                            300.h,
                                                                         child: GridView.builder(
                                                                             physics: const NeverScrollableScrollPhysics(),
                                                                             itemCount: categoryList.length,
