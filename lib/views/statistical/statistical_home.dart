@@ -304,7 +304,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                               Row(
                                 children: [
                                   Icon(Icons.note_alt_outlined, size: 15.w),kSizedBoxW10,
-                                  CustomText(text: expL[index].note??""),
+                                  CustomText(text: expL[index].note??"",fontSize: 8.sp,),
                                 ],
                               )
                             ],
