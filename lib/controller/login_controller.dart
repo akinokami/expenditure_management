@@ -8,6 +8,8 @@ import '../utils/constants.dart';
 import '../utils/global.dart';
 
 class LoginController extends GetxController {
+  final isLoading = false.obs;
+
   @override
   void onInit() {
     //
@@ -15,9 +17,9 @@ class LoginController extends GetxController {
   }
 
   void loginWithGoogle() async {
+    isLoading.value = false;
     try {
       final user = await GoogleApi.loginWithGoogle();
-      print(user);
       final box = GetStorage();
 
       if (user != null) {
@@ -36,6 +38,8 @@ class LoginController extends GetxController {
     } catch (e) {
       constants.showSnackBar(
           title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
+    } finally {
+      isLoading.value = false;
     }
   }
 }

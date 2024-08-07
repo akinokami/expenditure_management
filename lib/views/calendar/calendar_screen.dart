@@ -857,7 +857,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               kSizedBoxW10,
                                               CustomText(
                                                 fontSize: 10.sp,
-                                                text: Global.language == ' vi'
+                                                text: Global.language == 'vi'
                                                     ? value[index]
                                                             .expm
                                                             ?.category
@@ -877,11 +877,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               kSizedBoxW10,
                                               CustomText(
                                                 fontSize: 10.sp,
-                                                text: value[index]
-                                                        .expm
-                                                        ?.payment
-                                                        ?.name ??
-                                                    "",
+                                                text: Global.language == 'vi'
+                                                    ? (value[index]
+                                                            .expm
+                                                            ?.payment
+                                                            ?.nameVn ??
+                                                        "")
+                                                    : value[index]
+                                                            .expm
+                                                            ?.payment
+                                                            ?.name ??
+                                                        "",
                                               ),
                                             ],
                                           ),

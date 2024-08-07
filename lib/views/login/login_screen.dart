@@ -30,27 +30,28 @@ class _LoginScreenState extends State<LoginScreen> {
         firstTime = prefs.getInt('firstTime') ?? 0;
         print("First Time: $firstTime");
         if (firstTime == 0) {
-          if(context.mounted) {
+          if (context.mounted) {
             showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (ctx) => Builder(builder: (context) {
-              return StatefulBuilder(
-                builder: (context, StateSetter setState) {
-                  return AlertDialog(
-                    content: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.80,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          SingleChildScrollView(
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.65,
-                              width: double.infinity,
-                              //width: MediaQuery.of(context).size.width * 0.90,
-                              child: InAppWebView(
-                                // Initial URL request for the web view.
-                                initialData: InAppWebViewInitialData(data: """
+              context: context,
+              barrierDismissible: false,
+              builder: (ctx) => Builder(builder: (context) {
+                return StatefulBuilder(
+                  builder: (context, StateSetter setState) {
+                    return AlertDialog(
+                      content: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.80,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SingleChildScrollView(
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.65,
+                                width: double.infinity,
+                                //width: MediaQuery.of(context).size.width * 0.90,
+                                child: InAppWebView(
+                                  // Initial URL request for the web view.
+                                  initialData: InAppWebViewInitialData(data: """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,81 +83,84 @@ The app does use third-party services that may collect information used to ident
 </html>
 """),
 
-                                // Initial options for the web view, configuring platform-specific and cross-platform settings.
-                                initialOptions: InAppWebViewGroupOptions(
-                                  android: AndroidInAppWebViewOptions(
-                                    cacheMode: AndroidCacheMode.LOAD_DEFAULT,
-                                    useHybridComposition: true,
-                                    useShouldInterceptRequest: true,
-                                  ),
-                                  crossPlatform: InAppWebViewOptions(
-                                    cacheEnabled: true,
-                                    useShouldOverrideUrlLoading: true,
-                                    javaScriptEnabled: true,
+                                  // Initial options for the web view, configuring platform-specific and cross-platform settings.
+                                  initialOptions: InAppWebViewGroupOptions(
+                                    android: AndroidInAppWebViewOptions(
+                                      cacheMode: AndroidCacheMode.LOAD_DEFAULT,
+                                      useHybridComposition: true,
+                                      useShouldInterceptRequest: true,
+                                    ),
+                                    crossPlatform: InAppWebViewOptions(
+                                      cacheEnabled: true,
+                                      useShouldOverrideUrlLoading: true,
+                                      javaScriptEnabled: true,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          // Text(Global.policy, style: TextStyle(fontSize: 12)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Checkbox(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6)),
-                                activeColor: Colors.green,
-                                side: BorderSide(
-                                  width: 1.5,
-                                  color:
-                                  isChecked ? Colors.green : Colors.black,
+                            // Text(Global.policy, style: TextStyle(fontSize: 12)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6)),
+                                  activeColor: Colors.green,
+                                  side: BorderSide(
+                                    width: 1.5,
+                                    color:
+                                        isChecked ? Colors.green : Colors.black,
+                                  ),
+                                  value: isChecked,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                      if (isChecked) {
+                                        isAccepted = true;
+                                      } else {
+                                        isAccepted = false;
+                                      }
+                                    });
+                                  },
                                 ),
-                                value: isChecked,
-                                onChanged: (bool? value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                    if (isChecked) {
-                                      isAccepted = true;
-                                    } else {
-                                      isAccepted = false;
+                                Text('I agreed to the Privacy Policy.',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                    ))
+                              ],
+                            ),
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateColor.resolveWith((states) =>
+                                          isAccepted
+                                              ? secondaryColor
+                                              : greyColor)),
+                              child: Text(
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                ),
+                                'Accept',
+                              ),
+                              onPressed: isAccepted
+                                  ? () async {
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setInt('firstTime', 1);
+                                      Navigator.pop(context);
                                     }
-                                  });
-                                },
-                              ),
-                              Text('I agreed to the Privacy Policy.',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ))
-                            ],
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateColor.resolveWith((states) => isAccepted? secondaryColor:greyColor)
+                                  : null,
                             ),
-                            child: Text(
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                              'Accept',
-                            ),
-                            onPressed: isAccepted
-                                ? () async {
-                              SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                              prefs.setInt('firstTime', 1);
-                              Navigator.pop(context);
-                            }
-                                : null,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            }),
-          );
+                    );
+                  },
+                );
+              }),
+            );
           }
         }
       } catch (e) {
@@ -164,6 +168,7 @@ The app does use third-party services that may collect information used to ident
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final loginController = Get.put(LoginController());
@@ -173,10 +178,13 @@ The app does use third-party services that may collect information used to ident
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/images/google.webp',
-              width: 70.h,
-              height: 70.h,
+            // Image.asset(
+            //   'assets/images/google.webp',
+            //   width: 70.h,
+            //   height: 70.h,
+            // ),
+            FlutterLogo(
+              size: 70.sp,
             ),
             SizedBox(
               height: 20.h,
@@ -187,16 +195,22 @@ The app does use third-party services that may collect information used to ident
               fontWeight: FontWeight.w500,
             ),
             SizedBox(
-              height: 20.h,
+              height: 50.h,
             ),
-            CustomButton(
-              image: 'assets/images/google.webp',
-              text: 'sign_in_with_google'.tr,
-              bgColor: Colors.white,
-              txtColor: Colors.black,
-              onTap: () {
-                loginController.loginWithGoogle();
-              },
+            Obx(
+              () => loginController.isLoading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : CustomButton(
+                      image: 'assets/images/google.webp',
+                      text: 'sign_in_with_google'.tr,
+                      bgColor: Colors.white,
+                      txtColor: Colors.black,
+                      onTap: () {
+                        loginController.loginWithGoogle();
+                      },
+                    ),
             ),
           ],
         ),

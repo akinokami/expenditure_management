@@ -76,6 +76,38 @@ class HomeScreen extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount: homeController.expGroupList.length,
                               itemBuilder: (context, index) {
+                                int total = 0;
+                                if ((homeController
+                                            .expGroupList[index].expList ??
+                                        [])
+                                    .isNotEmpty) {
+                                  for (int i = 0;
+                                      i <
+                                          (homeController.expGroupList[index]
+                                                      .expList ??
+                                                  [])
+                                              .length;
+                                      i++) {
+                                    if (homeController.expGroupList[index]
+                                            .expList?[i].expm?.type?.id ==
+                                        1) {
+                                      total -= (homeController
+                                              .expGroupList[index]
+                                              .expList?[i]
+                                              .expm
+                                              ?.amount ??
+                                          0);
+                                    } else {
+                                      total += (homeController
+                                              .expGroupList[index]
+                                              .expList?[i]
+                                              .expm
+                                              ?.amount ??
+                                          0);
+                                    }
+                                  }
+                                }
+
                                 return Column(
                                   children: [
                                     Container(
@@ -101,7 +133,7 @@ class HomeScreen extends StatelessWidget {
                                           Row(
                                             children: [
                                               CustomText(
-                                                text: "1000 VND",
+                                                text: total.toString(),
                                                 color: primaryColor,
                                               ),
                                               kSizedBoxW10,
@@ -702,15 +734,26 @@ class HomeScreen extends StatelessWidget {
                                                             kSizedBoxW10,
                                                             CustomText(
                                                               fontSize: 10.sp,
-                                                              text: homeController
-                                                                      .expGroupList[
-                                                                          index]
-                                                                      .expList?[
-                                                                          index1]
-                                                                      .expm
-                                                                      ?.category
-                                                                      ?.name ??
-                                                                  "",
+                                                              text: Global.language ==
+                                                                      'vi'
+                                                                  ? (homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index]
+                                                                          .expm
+                                                                          ?.category
+                                                                          ?.nameVn ??
+                                                                      "")
+                                                                  : homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index1]
+                                                                          .expm
+                                                                          ?.category
+                                                                          ?.name ??
+                                                                      "",
                                                             ),
                                                             kSizedBoxW10,
                                                             Icon(
@@ -720,15 +763,26 @@ class HomeScreen extends StatelessWidget {
                                                             kSizedBoxW10,
                                                             CustomText(
                                                               fontSize: 10.sp,
-                                                              text: homeController
-                                                                      .expGroupList[
-                                                                          index]
-                                                                      .expList?[
-                                                                          index1]
-                                                                      .expm
-                                                                      ?.payment
-                                                                      ?.name ??
-                                                                  "",
+                                                              text: Global.language ==
+                                                                      'vi'
+                                                                  ? (homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index1]
+                                                                          .expm
+                                                                          ?.payment
+                                                                          ?.nameVn ??
+                                                                      "")
+                                                                  : homeController
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index1]
+                                                                          .expm
+                                                                          ?.payment
+                                                                          ?.name ??
+                                                                      "",
                                                             ),
                                                           ],
                                                         ),
