@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            useMaterial3: true,
+           // useMaterial3: true,
           ),
           translations: Languages(),
           locale: Global.language == 'vi'
