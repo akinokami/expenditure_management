@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/controller/home_controller.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
@@ -22,7 +24,7 @@ class BottomNavController extends GetxController {
   final firestoreService = FireStoreService();
   final noteTxtController = TextEditingController();
   final amountTxtController = TextEditingController();
-
+late Timer timer;
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -53,8 +55,15 @@ class BottomNavController extends GetxController {
 
   @override
   void onInit() {
-    formatDate();
-    formatTime();
+    timer=Timer.periodic(const Duration(seconds: 1), (timer) {
+      selectedDate=DateTime.now();
+      selectedTime=TimeOfDay.now();
+      formatDate();
+      formatTime();
+    });
+
+
+
     super.onInit();
   }
 
