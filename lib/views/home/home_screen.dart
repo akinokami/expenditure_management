@@ -146,14 +146,15 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           child: GestureDetector(
                                               onTap: () {
-                                                // expUpdateController.updateInitial(
-                                                //     expenditureModel:
-                                                //         homeController.searchList
-                                                //                 .isNotEmpty
-                                                //             ? homeController
-                                                //                 .searchList[index]
-                                                //             : homeController
-                                                //                 .expList[index]);
+                                                expUpdateController
+                                                    .updateInitial(
+                                                        expenditureModel:
+                                                            homeController
+                                                                .expGroupList[
+                                                                    index]
+                                                                .expList?[
+                                                                    index1]
+                                                                .expm);
                                                 showModalBottomSheet(
                                                   backgroundColor: primaryColor,
                                                   context: context,

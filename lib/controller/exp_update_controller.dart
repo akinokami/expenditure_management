@@ -135,7 +135,7 @@ class ExpUpdateController extends GetxController {
                 ? TypeModel(id: 1, name: 'Expense', nameVn: 'Chi phí')
                 : TypeModel(id: 2, name: 'Income', nameVn: 'Thu nhập'),
             createdDate: DateTime.now().toString(),
-            updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}:00",
+            updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}",
           ));
       Get.find<HomeController>().getExpenditures();
       constants.showSnackBar(

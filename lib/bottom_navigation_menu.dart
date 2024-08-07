@@ -44,7 +44,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.home_filled,
                   size: 18.w,
                 ),
-                label: 'Home',
+                label: 'home'.tr,
                 backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
@@ -52,7 +52,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.pie_chart,
                   size: 18.w,
                 ),
-                label: 'Statistical',
+                label: 'statistical'.tr,
                 backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
@@ -60,7 +60,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.calendar_month,
                   size: 18.w,
                 ),
-                label: 'Calendar',
+                label: 'calendar'.tr,
                 backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
@@ -68,7 +68,7 @@ class BottomNavigationMenu extends StatelessWidget {
                   Icons.person,
                   size: 18.w,
                 ),
-                label: 'Profile',
+                label: 'profile'.tr,
                 backgroundColor: primaryColor,
               ),
             ],

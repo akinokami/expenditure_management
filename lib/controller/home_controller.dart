@@ -27,6 +27,8 @@ class HomeController extends GetxController {
   void getExpenditures() async {
     isLoading(true);
     try {
+      expList.clear();
+      expGroupList.clear();
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
