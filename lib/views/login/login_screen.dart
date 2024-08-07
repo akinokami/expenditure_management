@@ -294,7 +294,7 @@ The app does use third-party services that may collect information used to ident
                                     });
                                   },
                                 ),
-                                Text('I agreed to the Privacy Policy.',
+                                Text('agree'.tr,
                                     style: TextStyle(
                                       fontSize: 12,
                                     ))
@@ -312,7 +312,7 @@ The app does use third-party services that may collect information used to ident
                                   fontSize: 14,
                                   color: Colors.white,
                                 ),
-                                'Accept',
+                                'accept'.tr,
                               ),
                               onPressed: isAccepted
                                   ? () async {

@@ -113,7 +113,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                       ),
                     ),
                     child: CustomText(
-                      text: "Expense",
+                      text: "expense".tr,
                       fontSize: 16.sp,
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                           bottomRight: Radius.circular(10.r),
                         )),
                     child: CustomText(
-                      text: "Income",
+                      text: "income".tr,
                       fontSize: 16.sp,
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
@@ -244,6 +244,8 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                 ],
               ),
             ),
+            (expL.isEmpty)?
+            Center(child: CustomText(text: "no_data_found".tr,),):
             Expanded(
                 child: SizedBox(
               child: ListView.builder(
@@ -264,7 +266,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                                   kSizedBoxW10,
                                   CustomText(
                                     fontSize: 10.sp,
-                                    text: expL[index].category?.name ?? "",
+                                    text:Global.language=="vi"?(expL[index].category?.nameVn ?? ""): expL[index].category?.name ?? "",
                                   ),
                                   kSizedBoxW10,
                                   Icon(
@@ -274,7 +276,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                                   kSizedBoxW10,
                                   CustomText(
                                     fontSize: 10.sp,
-                                    text: expL[index].payment?.name ?? "",
+                                    text:Global.language=="vi"? (expL[index].payment?.nameVn ?? ""): expL[index].payment?.name ?? "",
                                   ),
                                 ],
                               ),
