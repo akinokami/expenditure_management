@@ -186,8 +186,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                       CustomText(
                         text: calendarController.totalExpense.value == 0
-                            ? "${calendarController.totalExpense}"
-                            : "- ${calendarController.totalExpense}",
+                            ? "${calendarController.totalExpense} ${Global().currencySymbol}"
+                            : "- ${calendarController.totalExpense} ${Global().currencySymbol}",
                         fontSize: 12.sp,
                         color: primaryColor,
                         fontWeight: FontWeight.bold,
@@ -217,8 +217,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         ),
                         CustomText(
                           text: calendarController.totalIncome.value == 0
-                              ? "${calendarController.totalIncome}"
-                              : "+ ${calendarController.totalIncome}",
+                              ? "${calendarController.totalIncome} ${Global().currencySymbol}"
+                              : "+ ${calendarController.totalIncome} ${Global().currencySymbol}",
                           fontSize: 12.sp,
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
@@ -943,8 +943,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       ),
                                       CustomText(
                                         text: value[index].expm?.type?.id == 1
-                                            ? "- ${value[index].expm?.amount ?? ''}"
-                                            : "+ ${value[index].expm?.amount ?? ''}",
+                                            ? "- ${value[index].expm?.amount ?? ''} ${Global().currencySymbol}"
+                                            : "+ ${value[index].expm?.amount ?? ''} ${Global().currencySymbol}",
                                         color: value[index].expm?.type?.id == 1
                                             ? redColor
                                             : secondaryColor,
