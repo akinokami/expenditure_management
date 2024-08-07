@@ -80,6 +80,9 @@ class ViLanguage {
     'are_you_sure_to_delete_all_expenditure_data':
         'Bạn có chắc chắn xóa tất cả dữ liệu chi tiêu không?',
     'confirm': 'Xác nhận',
-    'deleted_all_user_data': 'Đã xóa thành công tất cả dữ liệu người dùng.'
+    'deleted_all_user_data': 'Đã xóa thành công tất cả dữ liệu người dùng.',
+    'amount_must_be_fill': 'Số tiền phải được điền.',
+    'expense': 'Chi phí',
+    'income': 'Thu nhập',
   };
 }

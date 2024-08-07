@@ -1,4 +1,5 @@
 import 'package:expenditure_management/constants/dimen_const.dart';
+import 'package:expenditure_management/custom_widgets/custom_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/services/category_data.dart';
 import 'package:expenditure_management/services/google_api.dart';
@@ -133,8 +134,8 @@ class BottomNavigationMenu extends StatelessWidget {
                                       ),
                                     ),
                                     child: CustomText(
-                                      text: "Expense",
-                                      fontSize: 16.sp,
+                                      text: 'expense'.tr,
+                                      fontSize: 14.sp,
                                       color: primaryColor,
                                       fontWeight: FontWeight.bold,
                                       textAlign: TextAlign.center,
@@ -159,8 +160,8 @@ class BottomNavigationMenu extends StatelessWidget {
                                             bottomRight: Radius.circular(10),
                                           )),
                                       child: CustomText(
-                                        text: "Income",
-                                        fontSize: 16.sp,
+                                        text: 'income'.tr,
+                                        fontSize: 14.sp,
                                         color: primaryColor,
                                         fontWeight: FontWeight.bold,
                                         textAlign: TextAlign.center,
@@ -178,8 +179,7 @@ class BottomNavigationMenu extends StatelessWidget {
                               fillColor: cardColor,
                               suffixText: "\u20AB",
                               label: CustomText(
-                                text: "Amount",
-                                fontSize: 16.sp,
+                                text: 'amount'.tr,
                                 color: greyColor,
                               ),
                               border: OutlineInputBorder(
@@ -216,8 +216,7 @@ class BottomNavigationMenu extends StatelessWidget {
                               filled: true,
                               fillColor: cardColor,
                               label: CustomText(
-                                text: "Note",
-                                fontSize: 16.sp,
+                                text: 'note'.tr,
                                 color: greyColor,
                               ),
                               border: OutlineInputBorder(
@@ -255,14 +254,15 @@ class BottomNavigationMenu extends StatelessWidget {
                               collapsedBackgroundColor: cardColor,
                               collapsedShape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.r)),
-                              title: Text("Category"),
+                              title: CustomText(text: 'category'.tr),
                               children: [
                                 Padding(
                                   padding: EdgeInsets.all(8.w),
                                   child: SizedBox(
                                     height: 260.h,
                                     child: GridView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         itemCount: categoryList.length,
                                         shrinkWrap: true,
                                         gridDelegate:
@@ -342,7 +342,7 @@ class BottomNavigationMenu extends StatelessWidget {
                               collapsedBackgroundColor: cardColor,
                               collapsedShape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.r)),
-                              title: Text("Payment Method"),
+                              title: CustomText(text: 'payment_method'.tr),
                               children: [
                                 Padding(
                                   padding: EdgeInsets.all(8.w),
@@ -432,26 +432,34 @@ class BottomNavigationMenu extends StatelessWidget {
                               children: <Widget>[
                                 Row(
                                   children: [
-                                    Icon(Icons.calendar_month),
+                                    Icon(
+                                      Icons.calendar_month,
+                                      size: 20.sp,
+                                    ),
                                     Obx(
                                       () => GestureDetector(
                                         onTap: () => bottomNavController
                                             .selectDate(context),
-                                        child: Text(bottomNavController
-                                            .selectedDateStr.value),
+                                        child: CustomText(
+                                            text: bottomNavController
+                                                .selectedDateStr.value),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Icon(Icons.access_time),
+                                    Icon(
+                                      Icons.access_time,
+                                      size: 20.sp,
+                                    ),
                                     Obx(
                                       () => GestureDetector(
                                         onTap: () => bottomNavController
                                             .selectTime(context),
-                                        child: Text(bottomNavController
-                                            .selectedTimeStr.value),
+                                        child: CustomText(
+                                            text: bottomNavController
+                                                .selectedTimeStr.value),
                                       ),
                                     ),
                                   ],
@@ -462,20 +470,22 @@ class BottomNavigationMenu extends StatelessWidget {
                           kSizedBoxH30,
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                if (bottomNavController
-                                    .amountTxtController.text.isNotEmpty) {
-                                  bottomNavController.createExpenditure();
-                                } else {
-                                  constants.showSnackBar(
-                                      title: 'Error',
-                                      msg: "Amount must be fill",
-                                      textColor: Colors.red);
-                                }
-                              },
-                              child: const Text('Save'),
-                            ),
+                            child: CustomButton(
+                                width: 100.sp,
+                                text: 'save'.tr,
+                                bgColor: secondaryColor,
+                                outlineColor: secondaryColor,
+                                onTap: () {
+                                  if (bottomNavController
+                                      .amountTxtController.text.isNotEmpty) {
+                                    bottomNavController.createExpenditure();
+                                  } else {
+                                    constants.showSnackBar(
+                                        title: 'error'.tr,
+                                        msg: 'amount_must_be_fill'.tr,
+                                        textColor: Colors.red);
+                                  }
+                                }),
                           ),
                         ],
                       ),

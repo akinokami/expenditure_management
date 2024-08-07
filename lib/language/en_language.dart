@@ -80,6 +80,9 @@ class EnLanguage {
     'are_you_sure_to_delete_all_expenditure_data':
         'Are you sure to delete all expenditure data?',
     'confirm': 'Confirm',
-    'deleted_all_user_data': 'Deleted all user data successfully.'
+    'deleted_all_user_data': 'Deleted all user data successfully.',
+    'amount_must_be_fill': 'Amount must be fill.',
+    'expense': 'Expense',
+    'income': 'Income',
   };
 }
