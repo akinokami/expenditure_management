@@ -174,6 +174,7 @@ class BottomNavigationMenu extends StatelessWidget {
                           SizedBox(height: 10.h),
                           TextField(
                             controller: bottomNavController.amountTxtController,
+                            maxLength: 15,
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: cardColor,

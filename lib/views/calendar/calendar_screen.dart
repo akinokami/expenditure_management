@@ -372,6 +372,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 SizedBox(height: 10.h),
                                                 SizedBox(height: 10.h),
                                                 TextField(
+                                                  maxLength: 15,
                                                   controller:
                                                       expUpdateController
                                                           .amountTxtController,

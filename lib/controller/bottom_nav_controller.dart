@@ -58,10 +58,10 @@ class BottomNavController extends GetxController {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       selectedDate = DateTime.now();
       selectedTime = TimeOfDay.now();
-      formatDate();
+
       formatTime();
     });
-
+    formatDate();
     super.onInit();
   }
 

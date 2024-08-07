@@ -119,13 +119,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   child: GestureDetector(
                     onTap: () {},
-                    child: Center(
-                        child: CustomText(
-                      text: Global.name != ''
-                          ? (Global.name).substring(0, 1)
-                          : '',
-                      fontSize: 16.sp,
-                    )),
+                    child: Image.network(G),
                   ),
                 ),
                 title: Text(
@@ -202,25 +196,25 @@ class ProfileScreen extends StatelessWidget {
                           size: 20.sp,
                         ),
                       ),
-                      Divider(
-                        color: greyColor,
-                      ),
-                      ListTile(
-                        onTap: () {
-                          _showPersistentBottomSheet(context);
-                        },
-                        leading: Icon(
-                          Icons.watch_later_outlined,
-                          size: 20.sp,
-                        ),
-                        title: CustomText(
-                          text: 'daily_reminder'.tr,
-                        ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20.sp,
-                        ),
-                      ),
+                      // Divider(
+                      //   color: greyColor,
+                      // ),
+                      // ListTile(
+                      //   onTap: () {
+                      //     _showPersistentBottomSheet(context);
+                      //   },
+                      //   leading: Icon(
+                      //     Icons.watch_later_outlined,
+                      //     size: 20.sp,
+                      //   ),
+                      //   title: CustomText(
+                      //     text: 'daily_reminder'.tr,
+                      //   ),
+                      //   trailing: Icon(
+                      //     Icons.arrow_forward_ios,
+                      //     size: 20.sp,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

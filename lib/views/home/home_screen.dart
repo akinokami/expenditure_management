@@ -26,11 +26,11 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
         backgroundColor: primaryColor,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              CustomTextField(
+        body: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.only(left:8.w,right: 8.w,top: 8.h),
+              child: CustomTextField(
                 hintText: 'search'.tr,
                 onChanged: (value) {
                   homeController.searchExpenditures();
@@ -38,98 +38,96 @@ class HomeScreen extends StatelessWidget {
                 controller: homeController.searchTxtController,
                 fillColor: cardColor,
               ),
-              kSizedBoxH10,
-              Obx(
-                () => homeController.isLoading.value
-                    ? const Expanded(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                    : homeController.expFilterList.isEmpty
-                        ? Expanded(
-                            child: Center(
-                              child: CustomText(text: 'no_data_found'.tr),
-                            ),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: homeController.expFilterList.length,
-                              itemBuilder: (context, index) {
-                                int total = 0;
-                                if ((homeController
-                                            .expFilterList[index].expList ??
-                                        [])
-                                    .isNotEmpty) {
-                                  for (int i = 0;
-                                      i <
-                                          (homeController.expFilterList[index]
-                                                      .expList ??
-                                                  [])
-                                              .length;
-                                      i++) {
-                                    if (homeController.expFilterList[index]
-                                            .expList?[i].expm?.type?.id ==
-                                        1) {
-                                      total -= (homeController
-                                              .expFilterList[index]
-                                              .expList?[i]
-                                              .expm
-                                              ?.amount ??
-                                          0);
-                                    } else {
-                                      total += (homeController
-                                              .expFilterList[index]
-                                              .expList?[i]
-                                              .expm
-                                              ?.amount ??
-                                          0);
-                                    }
+            ),
+            kSizedBoxH10,
+            Obx(
+              () => homeController.isLoading.value
+                  ? const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : homeController.expFilterList.isEmpty
+                      ? Expanded(
+                          child: Center(
+                            child: CustomText(text: 'no_data_found'.tr),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: homeController.expFilterList.length,
+                            itemBuilder: (context, index) {
+                              int total = 0;
+                              if ((homeController
+                                          .expFilterList[index].expList ??
+                                      [])
+                                  .isNotEmpty) {
+                                for (int i = 0;
+                                    i <
+                                        (homeController.expFilterList[index]
+                                                    .expList ??
+                                                [])
+                                            .length;
+                                    i++) {
+                                  if (homeController.expFilterList[index]
+                                          .expList?[i].expm?.type?.id ==
+                                      1) {
+                                    total -= (homeController
+                                            .expFilterList[index]
+                                            .expList?[i]
+                                            .expm
+                                            ?.amount ??
+                                        0);
+                                  } else {
+                                    total += (homeController
+                                            .expFilterList[index]
+                                            .expList?[i]
+                                            .expm
+                                            ?.amount ??
+                                        0);
                                   }
                                 }
+                              }
 
-                                return Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10.w,
-                                      ),
-                                      width: double.infinity,
-                                      height: 40.h,
-                                      decoration: BoxDecoration(
-                                          color: secondaryColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          CustomText(
-                                              text: homeController
-                                                      .expFilterList[index]
-                                                      .month ??
-                                                  '',
-                                              color: primaryColor),
-                                          Row(
-                                            children: [
-                                              CustomText(
-                                                text:
-                                                    "${total.toString()} ${Global().currencySymbol}",
-                                                color: primaryColor,
-                                              ),
-                                              kSizedBoxW10,
-                                              Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: primaryColor,
-                                                size: 15.w,
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                              return Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w,
                                     ),
-                                    ListView.builder(
+                                    width: double.infinity,
+                                    height: 40.h,
+                                    decoration: BoxDecoration(
+                                        color: secondaryColor,
+                                       ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CustomText(
+                                            text: homeController
+                                                    .expFilterList[index]
+                                                    .month ??
+                                                '',
+                                            color: primaryColor),
+                                        Row(
+                                          children: [
+                                            CustomText(
+                                              text:
+                                                  "${total.toString()} ${Global().currencySymbol}",
+                                              color: primaryColor,
+                                            ),
+
+
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListView.builder(
                                       shrinkWrap: true,
                                       itemCount: homeController
                                           .expFilterList[index].expList?.length,
@@ -279,6 +277,7 @@ class HomeScreen extends StatelessWidget {
                                                               SizedBox(
                                                                   height: 10.h),
                                                               TextField(
+                                                                maxLength: 15,
                                                                 controller:
                                                                     expUpdateController
                                                                         .amountTxtController,
@@ -873,15 +872,15 @@ class HomeScreen extends StatelessWidget {
                                         );
                                       }),
                                     ),
-                                  ],
-                                );
-                              },
-                            ),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
-              ),
-              kSizedBoxH10,
-            ],
-          ),
+                        ),
+            ),
+            kSizedBoxH10,
+          ],
         ));
   }
 }
