@@ -51,7 +51,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void initState() {
-    getExpenditures();
+    //getExpenditures();
     super.initState();
   }
 
@@ -85,12 +85,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
       equals: isSameDay,
       hashCode: getHashCode,
       // ignore: prefer_for_elements_to_map_fromiterable
-    )..addAll(Map.fromIterable(expList,
+    )..addAll(Map.fromIterable(calendarController.expList,
         key: (item) => day,
         value: (item) {
           List<Expenditure> eList = [];
 
-          for (var exp in expList) {
+          for (var exp in calendarController.expList) {
             if (DateFormat('yyyy-MM-dd').format(day).toString() ==
                 DateFormat('yyyy-MM-dd')
                     .format(exp.calDate ?? DateTime.now())
