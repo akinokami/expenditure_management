@@ -20,7 +20,7 @@ class ProfileController extends GetxController {
   void deleteAllUserData({required String docId}) {
     isLoading(true);
     try {
-      firestoreService.deleteAllUserData(docId);
+      firestoreService.deleteAll();
       Get.offAll(() => const LoginScreen());
       constants.showSnackBar(
           title: 'success'.tr,
