@@ -773,6 +773,37 @@ class HomeScreen extends StatelessWidget {
                                                                   .elementAt(1),
                                                             ),
                                                           ],
+                                                        ),
+                                                        kSizedBoxH2,
+                                                        Visibility(
+                                                          visible: homeController
+                                                                  .expGroupList[
+                                                                      index]
+                                                                  .expList?[
+                                                                      index1]
+                                                                  .expm
+                                                                  ?.note !=
+                                                              '',
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                  Icons
+                                                                      .note_alt_outlined,
+                                                                  size: 15.w),
+                                                              kSizedBoxW10,
+                                                              CustomText(
+                                                                text: homeController
+                                                                        .expGroupList[
+                                                                            index]
+                                                                        .expList?[
+                                                                            index1]
+                                                                        .expm
+                                                                        ?.note ??
+                                                                    "",
+                                                                fontSize: 10.sp,
+                                                              ),
+                                                            ],
+                                                          ),
                                                         )
                                                       ],
                                                     ),

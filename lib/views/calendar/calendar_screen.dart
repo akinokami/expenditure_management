@@ -915,6 +915,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                     .elementAt(1),
                                               ),
                                             ],
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                value[index].expm?.note != '',
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.note_alt_outlined,
+                                                    size: 15.w),
+                                                kSizedBoxW10,
+                                                CustomText(
+                                                  text:
+                                                      value[index].expm?.note ??
+                                                          "",
+                                                  fontSize: 10.sp,
+                                                ),
+                                              ],
+                                            ),
                                           )
                                         ],
                                       ),
