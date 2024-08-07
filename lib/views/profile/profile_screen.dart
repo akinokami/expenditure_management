@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/controller/language_controller.dart';
@@ -11,9 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../services/google_api.dart';
-import '../../utils/constants.dart';
 import '../../utils/global.dart';
-import '../login/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -308,21 +305,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-  // void deleteAllData() async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection('users')
-  //         .doc(Global.uid)
-  //         .delete();
-  //     Get.offAll(() => const LoginScreen());
-  //     constants.showSnackBar(
-  //         title: 'success'.tr,
-  //         msg: 'deleted_all_user_data'.tr,
-  //         textColor: secondaryColor);
-  //   } catch (e) {
-  //     constants.showSnackBar(
-  //         title: 'error'.tr, msg: e.toString(), textColor: Colors.red);
-  //   }
-  // }
 }
