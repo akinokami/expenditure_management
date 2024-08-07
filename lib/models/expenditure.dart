@@ -4,9 +4,10 @@ import 'package:intl/intl.dart';
 class Expenditure {
   String? docId;
   String? month;
+  DateTime? calDate;
   ExpenditureModel? expm;
 
-  Expenditure({this.docId, this.month, this.expm});
+  Expenditure({this.docId, this.month, this.calDate, this.expm});
 
   Expenditure.fromJson(Map<String, dynamic> json) {
     docId = json['docId'];
@@ -15,6 +16,9 @@ class Expenditure {
             .format(DateTime.parse(json['expm']['updated_date']))
             .toString()
         : '';
+    calDate = json['expm']['updated_date'] != null
+        ? DateTime.parse(json['expm']['updated_date'])
+        : DateTime.now();
     expm =
         json['expm'] != null ? ExpenditureModel.fromJson(json['expm']) : null;
   }

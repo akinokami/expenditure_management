@@ -2,6 +2,7 @@ import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/controller/home_controller.dart';
 import 'package:expenditure_management/models/expenditure_model.dart';
 import 'package:expenditure_management/services/firestore_service.dart';
+import 'package:expenditure_management/views/calendar/calendar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -142,7 +143,7 @@ class ExpUpdateController extends GetxController {
           title: 'Success',
           msg: "Data updated successfully.",
           textColor: secondaryColor);
-      clearData();
+      //clearData();
     } catch (e) {
       constants.showSnackBar(
           title: 'Error', msg: e.toString(), textColor: Colors.red);

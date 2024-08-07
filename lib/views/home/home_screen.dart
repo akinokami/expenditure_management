@@ -119,6 +119,8 @@ class HomeScreen extends StatelessWidget {
                                       shrinkWrap: true,
                                       itemCount: homeController
                                           .expGroupList[index].expList?.length,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       itemBuilder: ((context, index1) {
                                         return Slidable(
                                           key: ValueKey(index),
@@ -424,7 +426,7 @@ class HomeScreen extends StatelessWidget {
                                                                         height:
                                                                             260.h,
                                                                         child: GridView.builder(
-                                                                            physics: NeverScrollableScrollPhysics(),
+                                                                            physics: const NeverScrollableScrollPhysics(),
                                                                             itemCount: categoryList.length,
                                                                             shrinkWrap: true,
                                                                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
@@ -442,7 +444,7 @@ class HomeScreen extends StatelessWidget {
                                                                                     ),
                                                                                     child: Center(
                                                                                       child: CustomText(
-                                                                                        text: categoryList[index].name ?? "",
+                                                                                        text: Global.language == 'vi' ? categoryList[index].nameVn ?? "" : categoryList[index].name ?? "",
                                                                                         fontSize: 10.sp,
                                                                                         color: primaryColor,
                                                                                       ),
@@ -478,8 +480,9 @@ class HomeScreen extends StatelessWidget {
                                                                           Center(
                                                                         child:
                                                                             CustomText(
-                                                                          text: expUpdateController.selectedCategory.value.name ??
-                                                                              "",
+                                                                          text: Global.language == 'vi'
+                                                                              ? expUpdateController.selectedCategory.value.nameVn ?? ""
+                                                                              : expUpdateController.selectedCategory.value.name ?? "",
                                                                           fontSize:
                                                                               10.sp,
                                                                           color:
@@ -534,7 +537,7 @@ class HomeScreen extends StatelessWidget {
                                                                                     ),
                                                                                     child: Center(
                                                                                       child: CustomText(
-                                                                                        text: paymentList[index].name ?? "",
+                                                                                        text: Global.language == 'vi' ? paymentList[index].nameVn ?? "" : paymentList[index].name ?? "",
                                                                                         fontSize: 10.sp,
                                                                                         color: primaryColor,
                                                                                       ),
@@ -570,8 +573,9 @@ class HomeScreen extends StatelessWidget {
                                                                           Center(
                                                                         child:
                                                                             CustomText(
-                                                                          text: expUpdateController.selectedPayment.value.name ??
-                                                                              "",
+                                                                          text: Global.language == 'vi'
+                                                                              ? expUpdateController.selectedPayment.value.nameVn ?? ""
+                                                                              : expUpdateController.selectedPayment.value.name ?? "",
                                                                           fontSize:
                                                                               10.sp,
                                                                           color:
@@ -699,23 +703,14 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 10.sp,
                                                               text: homeController
-                                                                      .searchList
-                                                                      .isNotEmpty
-                                                                  ? homeController
-                                                                          .searchList[
-                                                                              index]
-                                                                          .category
-                                                                          ?.name ??
-                                                                      ''
-                                                                  : homeController
-                                                                          .expGroupList[
-                                                                              index]
-                                                                          .expList?[
-                                                                              index1]
-                                                                          .expm
-                                                                          ?.category
-                                                                          ?.name ??
-                                                                      "",
+                                                                      .expGroupList[
+                                                                          index]
+                                                                      .expList?[
+                                                                          index1]
+                                                                      .expm
+                                                                      ?.category
+                                                                      ?.name ??
+                                                                  "",
                                                             ),
                                                             kSizedBoxW10,
                                                             Icon(
@@ -726,23 +721,14 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 10.sp,
                                                               text: homeController
-                                                                      .searchList
-                                                                      .isNotEmpty
-                                                                  ? homeController
-                                                                          .searchList[
-                                                                              index]
-                                                                          .payment
-                                                                          ?.name ??
-                                                                      ''
-                                                                  : homeController
-                                                                          .expGroupList[
-                                                                              index]
-                                                                          .expList?[
-                                                                              index1]
-                                                                          .expm
-                                                                          ?.payment
-                                                                          ?.name ??
-                                                                      "",
+                                                                      .expGroupList[
+                                                                          index]
+                                                                      .expList?[
+                                                                          index1]
+                                                                      .expm
+                                                                      ?.payment
+                                                                      ?.name ??
+                                                                  "",
                                                             ),
                                                           ],
                                                         ),
@@ -756,19 +742,13 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 8.sp,
                                                               text: (homeController
-                                                                          .searchList
-                                                                          .isNotEmpty
-                                                                      ? homeController
-                                                                              .searchList[
-                                                                                  index]
-                                                                              .updatedDate ??
-                                                                          ''
-                                                                      : homeController
-                                                                              .expGroupList[index]
-                                                                              .expList?[index1]
-                                                                              .expm
-                                                                              ?.updatedDate ??
-                                                                          "")
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index1]
+                                                                          .expm
+                                                                          ?.updatedDate ??
+                                                                      "")
                                                                   .split(' ')
                                                                   .elementAt(0),
                                                             ),
@@ -782,19 +762,13 @@ class HomeScreen extends StatelessWidget {
                                                             CustomText(
                                                               fontSize: 8.sp,
                                                               text: (homeController
-                                                                          .searchList
-                                                                          .isNotEmpty
-                                                                      ? homeController
-                                                                              .searchList[
-                                                                                  index]
-                                                                              .updatedDate ??
-                                                                          ''
-                                                                      : homeController
-                                                                              .expGroupList[index]
-                                                                              .expList?[index1]
-                                                                              .expm
-                                                                              ?.updatedDate ??
-                                                                          "")
+                                                                          .expGroupList[
+                                                                              index]
+                                                                          .expList?[
+                                                                              index1]
+                                                                          .expm
+                                                                          ?.updatedDate ??
+                                                                      "")
                                                                   .split(' ')
                                                                   .elementAt(1),
                                                             ),
@@ -804,10 +778,27 @@ class HomeScreen extends StatelessWidget {
                                                     ),
                                                     CustomText(
                                                       text: homeController
-                                                              .searchList
-                                                              .isNotEmpty
-                                                          ? "${homeController.searchList[index].amount ?? ''}"
-                                                          : "${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}",
+                                                                  .expGroupList[
+                                                                      index]
+                                                                  .expList?[
+                                                                      index1]
+                                                                  .expm
+                                                                  ?.type
+                                                                  ?.id ==
+                                                              1
+                                                          ? "- ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}"
+                                                          : "+ ${homeController.expGroupList[index].expList?[index1].expm?.amount ?? ''}",
+                                                      color: homeController
+                                                                  .expGroupList[
+                                                                      index]
+                                                                  .expList?[
+                                                                      index1]
+                                                                  .expm
+                                                                  ?.type
+                                                                  ?.id ==
+                                                              1
+                                                          ? redColor
+                                                          : secondaryColor,
                                                     ),
                                                   ],
                                                 ),

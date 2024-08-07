@@ -8,10 +8,7 @@ import 'package:expenditure_management/views/profile/change_language.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:share_plus/share_plus.dart';
-
-import '../../services/firestore_service.dart';
 import '../../services/google_api.dart';
 import '../../utils/global.dart';
 

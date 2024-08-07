@@ -34,13 +34,13 @@ class HomeController extends GetxController {
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
-      for(var i=0;i<expList.length;i++){
-        if(expList[i].expm?.type?.id==1){
+      print(expList);
+      for (var i = 0; i < expList.length; i++) {
+        if (expList[i].expm?.type?.id == 1) {
           pieExpenseList.add(expList[i].expm!);
-        }else{
+        } else {
           pieIncomeList.add(expList[i].expm!);
         }
-
       }
       var groupedItems = groupBy(expList, (Expenditure item) => item.month);
       groupedItems.forEach((key, value) {
