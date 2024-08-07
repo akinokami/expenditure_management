@@ -301,7 +301,7 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                                 ],
                               ),
                               kSizedBoxH2,
-                              Row(
+                              if((expL[index].note!=""))  Row(
                                 children: [
                                   Icon(Icons.note_alt_outlined, size: 15.w),kSizedBoxW10,
                                   CustomText(text: expL[index].note??"",fontSize: 8.sp,),
@@ -311,8 +311,8 @@ class _StatisticalHomeScreenState extends State<StatisticalHomeScreen> {
                           ),
                           CustomText(
                             text: isExpense
-                                ? "- ${expL[index].amount ?? ''}"
-                                : "+ ${expL[index].amount ?? ''}",
+                                ? "- ${expL[index].amount ?? ''} \u20AB"
+                                : "+ ${expL[index].amount ?? ''} \u20AB",
                             color: isExpense ? redColor : secondaryColor,
                           ),
                         ],

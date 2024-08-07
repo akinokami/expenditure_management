@@ -31,6 +31,8 @@ class HomeController extends GetxController {
     try {
       expList.clear();
       expGroupList.clear();
+      pieIncomeList.clear();
+      pieExpenseList.clear();
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
