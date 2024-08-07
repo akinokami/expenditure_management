@@ -2,7 +2,6 @@ import 'package:expenditure_management/constants/dimen_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_button.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:expenditure_management/services/category_data.dart';
-import 'package:expenditure_management/services/google_api.dart';
 import 'package:expenditure_management/services/payment_method_data.dart';
 import 'package:expenditure_management/utils/constants.dart';
 import 'package:expenditure_management/utils/global.dart';
@@ -92,8 +91,8 @@ class BottomNavigationMenu extends StatelessWidget {
               children: [
                 HomeScreen(),
                 StatisticalHomeScreen(),
-                ExpenditureCalendar(userId: GoogleApi.user?.uid ?? ''),
-                //CalendarScreen(),
+                // ExpenditureCalendar(userId: GoogleApi.user?.uid ?? ''),
+                CalendarScreen(),
                 ProfileScreen(),
               ],
             )),

@@ -32,6 +32,7 @@ class HomeController extends GetxController {
       List<Map<String, dynamic>> result =
           await firestoreService.getExpenditures();
       expList.assignAll(result.map((e) => Expenditure.fromJson(e)).toList());
+      print(expList);
       var groupedItems = groupBy(expList, (Expenditure item) => item.month);
       groupedItems.forEach((key, value) {
         expGroupList.add(ExpmGroup(month: key, expList: value));

@@ -8,15 +8,16 @@ class ExpenditureModel {
   String? createdDate;
   String? updatedDate;
 
-  ExpenditureModel(
-      {this.docId,
-      this.note,
-      this.amount,
-      this.payment,
-      this.category,
-      this.type,
-      this.createdDate,
-      this.updatedDate});
+  ExpenditureModel({
+    this.docId,
+    this.note,
+    this.amount,
+    this.payment,
+    this.category,
+    this.type,
+    this.createdDate,
+    this.updatedDate,
+  });
 
   ExpenditureModel.fromJson(Map<String, dynamic> json) {
     note = json['note'];
