@@ -54,7 +54,7 @@ class BottomNavController extends GetxController {
   @override
   void onInit() {
     formatDate();
-    selectedTimeStr.value = "${selectedTime.hour}:${selectedTime.minute}";
+    formatTime();
     super.onInit();
   }
 
