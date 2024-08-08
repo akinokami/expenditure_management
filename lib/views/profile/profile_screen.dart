@@ -174,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                               text: 'language'.tr,
                             ),
                             CustomText(
-                              text: languageController.language.value == "vi"
+                              text: Global.language == "vi"
                                   ? 'vietnam'.tr
                                   : 'english'.tr,
                               fontSize: 12.sp,

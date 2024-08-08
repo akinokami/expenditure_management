@@ -533,6 +533,7 @@ class HomeScreen extends StatelessWidget {
                                                                         height:
                                                                             100.h,
                                                                         child: GridView.builder(
+                                                                            physics: const NeverScrollableScrollPhysics(),
                                                                             itemCount: paymentList.length,
                                                                             shrinkWrap: true,
                                                                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 3, crossAxisCount: 3, crossAxisSpacing: 20.w, mainAxisSpacing: 10.h),
