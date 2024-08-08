@@ -42,9 +42,11 @@ class HomeScreen extends StatelessWidget {
             kSizedBoxH10,
             Obx(
               () => homeController.isLoading.value
-                  ? const Expanded(
+                  ? Expanded(
                       child: Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: secondaryColor,
+                        ),
                       ),
                     )
                   : homeController.expFilterList.isEmpty

@@ -211,15 +211,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
           ),
           Obx(
             () => calendarController.isLoading.value
-                ? const Center(
-                    child: CircularProgressIndicator(),
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: secondaryColor,
+                    ),
                   )
                 : ValueListenableBuilder<List<Expenditure>>(
                     valueListenable: selectedExpenditures,
                     builder: (context, value, _) {
                       return value.isEmpty
-                          ? Center(
-                              child: CustomText(text: 'no_data_found'.tr),
+                          ? Padding(
+                              padding: EdgeInsets.only(top: 50.h),
+                              child: Center(
+                                child: CustomText(text: 'no_data_found'.tr),
+                              ),
                             )
                           : Padding(
                               padding: const EdgeInsets.all(10),

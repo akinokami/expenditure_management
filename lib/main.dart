@@ -1,3 +1,4 @@
+import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/firebase_options.dart';
 import 'package:expenditure_management/language/languages.dart';
 import 'package:expenditure_management/splash_screen.dart';

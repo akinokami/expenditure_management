@@ -1,3 +1,4 @@
+import 'package:expenditure_management/constants/color_const.dart';
 import 'package:expenditure_management/custom_widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,11 +40,11 @@ class CustomButton extends StatelessWidget {
         width: width ?? double.infinity,
         height: height ?? 35.h,
         decoration: BoxDecoration(
-          border: Border.all(color: outlineColor ?? Colors.green, width: 2),
+          border: Border.all(color: outlineColor ?? secondaryColor, width: 2),
           borderRadius: isRounded == true
               ? BorderRadius.circular(100)
               : BorderRadius.circular(5),
-          color: bgColor ?? Colors.green,
+          color: bgColor ?? secondaryColor,
         ),
         alignment: Alignment.center,
         child: Row(

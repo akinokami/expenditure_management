@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../services/firestore_service.dart';
+import '../services/google_api.dart';
 import '../utils/constants.dart';
 
 class ProfileController extends GetxController {
@@ -21,7 +22,7 @@ class ProfileController extends GetxController {
     isLoading(true);
     try {
       firestoreService.deleteAll();
-      Get.offAll(() => const LoginScreen());
+      GoogleApi().logout();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'deleted_all_user_data'.tr,

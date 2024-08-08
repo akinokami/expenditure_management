@@ -52,8 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //width: MediaQuery.of(context).size.width * 0.90,
                                 child: InAppWebView(
                                   // Initial URL request for the web view.
-                                  initialData:Global.language=="vi"?
-                                  InAppWebViewInitialData(data: """
+                                  initialData: Global.language == "vi"
+                                      ? InAppWebViewInitialData(data: """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -220,8 +220,8 @@ Thu thập và sử dụng thông tin Để có trải nghiệm tốt hơn, khi 
 
 </body>
 </html>
-"""):
-                                  InAppWebViewInitialData(data: """
+""")
+                                      : InAppWebViewInitialData(data: """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -369,8 +369,10 @@ The app does use third-party services that may collect information used to ident
             ),
             Obx(
               () => loginController.isLoading.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: secondaryColor,
+                      ),
                     )
                   : CustomButton(
                       image: 'assets/images/google.webp',

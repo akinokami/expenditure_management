@@ -129,8 +129,10 @@ class ChangeLanguageScreen extends StatelessWidget {
                     height: double.infinity,
                     color: Colors.black
                         .withOpacity(0.5), // Semi-transparent overlay
-                    child: const Center(
-                      child: CircularProgressIndicator(), // Loading indicator
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: secondaryColor,
+                      ), // Loading indicator
                     ),
                   )
                 : const SizedBox

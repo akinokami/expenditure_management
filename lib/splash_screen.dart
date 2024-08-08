@@ -21,11 +21,11 @@ class SplashScreen extends StatelessWidget {
           children: [
             const FlutterLogo(size: 100.0),
             kSizedBoxH30,
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            CircularProgressIndicator(
+              color: secondaryColor,
             ),
             kSizedBoxH30,
-            CustomText(text: 'please_wait'.tr, color: Colors.white),
+            CustomText(text: 'please_wait'.tr, color: Colors.black),
           ],
         ),
       ),
