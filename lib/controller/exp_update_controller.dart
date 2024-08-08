@@ -139,8 +139,8 @@ class ExpUpdateController extends GetxController {
             createdDate: DateTime.now().toString(),
             updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}",
           ));
-      Get.find<HomeController>().getExpenditures();
-      Get.find<CalendarController>().getExpenditures();
+      Get.put(HomeController()).getExpenditures();
+      Get.put(CalendarController()).getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_updated'.tr,
@@ -158,8 +158,8 @@ class ExpUpdateController extends GetxController {
     isLoading(true);
     try {
       firestoreService.deleteExpenditure(docId);
-      Get.find<HomeController>().getExpenditures();
-      Get.find<CalendarController>().getExpenditures();
+      Get.put(HomeController()).getExpenditures();
+      Get.put(CalendarController()).getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_deleted'.tr,

@@ -119,8 +119,8 @@ class BottomNavController extends GetxController {
         createdDate: DateTime.now().toString(),
         updatedDate: "${selectedDateStr.value} ${selectedTimeStr.value}",
       ));
-      Get.find<HomeController>().getExpenditures();
-      Get.find<CalendarController>().getExpenditures();
+      Get.put(HomeController()).getExpenditures();
+      Get.put(CalendarController()).getExpenditures();
       constants.showSnackBar(
           title: 'success'.tr,
           msg: 'data_created'.tr,
