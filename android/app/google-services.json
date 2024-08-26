@@ -14,11 +14,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "16505425247-c7bmdn0vcsmhlg6446bngdrduhfi98a2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.em.expenditure_management",
+            "certificate_hash": "fbb406dda9b02af480cdfd05b062f0ab96d17fd3"
+          }
+        },
+        {
+          "client_id": "16505425247-mhh9vchf4qdc5vs7nkm5vakq5l8rcfj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.em.expenditure_management",
+            "certificate_hash": "2dba9d117abcd9286c505a0ce22dc4b517919035"
+          }
+        },
+        {
           "client_id": "16505425247-mklnq23jufq1f8gn46ise68e791vq580.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.em.expenditure_management",
             "certificate_hash": "c1eb03c466132674f091807554d8280764ee5352"
+          }
+        },
+        {
+          "client_id": "16505425247-sdkplv3g8aqqu7aphfaor35naelcf2aq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.em.expenditure_management",
+            "certificate_hash": "bbad7645933c70c8bb59a1edbb0e8de05c9cdf58"
           }
         },
         {

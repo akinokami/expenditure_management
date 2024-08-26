@@ -343,19 +343,18 @@ The app does use third-party services that may collect information used to ident
   Widget build(BuildContext context) {
     final loginController = Get.put(LoginController());
     return Scaffold(
+       backgroundColor: Color(0xFFf7f7f7),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Image.asset(
-            //   'assets/images/google.webp',
-            //   width: 70.h,
-            //   height: 70.h,
-            // ),
-            FlutterLogo(
-              size: 70.sp,
+            Image.asset(
+              'assets/images/logo.png',
+              width: 100.w,
+              height: 100.h,
             ),
+
             SizedBox(
               height: 20.h,
             ),

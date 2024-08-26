@@ -73,7 +73,7 @@ class ViLanguage {
     'update': 'Cập nhật',
     'delete': 'Xóa bỏ',
     'please_wait': 'Vui lòng chờ......',
-    'expenditure_management': 'Quản lý chi tiêu',
+    'expenditure_management': 'Quản lý thu chi',
     'sign_in_with_google': 'Đăng nhập bằng Google',
     'recommend_app_to_friends': 'Giới thiệu ứng dụng cho bạn bè',
     'daily_reminder': 'Nhắc nhở hàng ngày',
