@@ -1,5 +1,4 @@
 import 'package:expenditure_management/constants/color_const.dart';
-import 'package:expenditure_management/views/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
